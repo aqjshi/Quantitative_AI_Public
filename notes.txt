@@ -1,0 +1,76 @@
+add entry price as column for training.
+
+==================================================
+=== FINAL ACCUMULATED PER-TICKER PROFIT METRICS ===
+==================================================
+
+--- Company: AMD ---
+  Total Trades Taken (Predicted Buy): 68589
+  Net Profitability (Normalized Sum): 4,179.0636
+  Win Rate (Trades Taken): 57.7440%
+  Profit Factor (Trades Taken): 1.53
+
+  Confusion Matrix (TP/FP/FN/TN):
+    True Positives (TP): 39606
+    False Positives (FP): 28983
+    False Negatives (FN): 19562
+    True Negatives (TN): 30473
+  TP Yields (Normalized) - Mean: 0.3059, Median: 0.2420, Std: 0.2420
+  FP Yields (Normalized) - Mean: -0.2738, Median: -0.1903, Std: 0.2625
+  FN Yields (Absolute) - Mean: 0.2649, Median: 0.1853, Std: 0.2400
+  TN Yields (Absolute) - Mean: -0.3285, Median: -0.2417, Std: 0.2867
+
+--- Company: NVDA ---
+  Total Trades Taken (Predicted Buy): 74016
+  Net Profitability (Normalized Sum): 4,975.7428
+  Win Rate (Trades Taken): 59.2480%
+  Profit Factor (Trades Taken): 1.48
+
+  Confusion Matrix (TP/FP/FN/TN):
+    True Positives (TP): 43853
+    False Positives (FP): 30163
+    False Negatives (FN): 17398
+    True Negatives (TN): 27210
+  TP Yields (Normalized) - Mean: 0.3487, Median: 0.2686, Std: 0.2686
+  FP Yields (Normalized) - Mean: -0.3420, Median: -0.2323, Std: 0.3175
+  FN Yields (Absolute) - Mean: 0.2873, Median: 0.1916, Std: 0.2623
+  TN Yields (Absolute) - Mean: -0.3672, Median: -0.2530, Std: 0.3272
+==================================================
+
+PROFIT MODEL
+==================================================
+=== FINAL ACCUMULATED PER-TICKER PROFIT METRICS ===
+==================================================
+
+--- Company: AMD ---
+  Total Trades Taken (Predicted Buy): 68158
+  Net Profitability (Normalized Sum): 4,991.8575
+  Win Rate (Trades Taken): 58.5713%
+  Profit Factor (Trades Taken): 1.68
+
+  Confusion Matrix (TP/FP/FN/TN):
+    True Positives (TP): 39921
+    False Positives (FP): 28237
+    False Negatives (FN): 19247
+    True Negatives (TN): 31219
+  TP Yields (Normalized) - Mean: 0.3076, Median: 0.2431, Std: 0.2440
+  FP Yields (Normalized) - Mean: -0.2581, Median: -0.1766, Std: 0.2549
+  FN Yields (Absolute) - Mean: 0.2605, Median: 0.1847, Std: 0.2349
+  TN Yields (Absolute) - Mean: -0.3413, Median: -0.2570, Std: 0.2892
+
+--- Company: NVDA ---
+  Total Trades Taken (Predicted Buy): 65613
+  Net Profitability (Normalized Sum): 5,995.9670
+  Win Rate (Trades Taken): 62.0944%
+  Profit Factor (Trades Taken): 1.73
+
+  Confusion Matrix (TP/FP/FN/TN):
+    True Positives (TP): 40742
+    False Positives (FP): 24871
+    False Negatives (FN): 20509
+    True Negatives (TN): 32502
+  TP Yields (Normalized) - Mean: 0.3498, Median: 0.2715, Std: 0.2670
+  FP Yields (Normalized) - Mean: -0.3319, Median: -0.2162, Std: 0.3192
+  FN Yields (Absolute) - Mean: 0.2945, Median: 0.1960, Std: 0.2670
+  TN Yields (Absolute) - Mean: -0.3709, Median: -0.2613, Std: 0.3238
+==================================================
