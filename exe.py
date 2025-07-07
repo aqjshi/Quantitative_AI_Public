@@ -301,32 +301,32 @@ class TradeApp(EWrapper, EClient):
         print("Monitor your TWS terminal to confirm all positions are closed.")
         time.sleep(3) # Allow time for orders to be sent before disconnecting
 
-    def manage_expired_positions(self, forecast_depth_minutes: int):
-        """
-        Checks for any open positions that have exceeded their forecast depth
-        and liquidates them immediately.
-        """
-        now_utc = datetime.now(timezone.utc)
+    # def manage_expired_positions(self, forecast_depth_minutes: int):
+    #     """
+    #     Checks for any open positions that have exceeded their forecast depth
+    #     and liquidates them immediately.
+    #     """
+    #     now_utc = datetime.now(timezone.utc)
         
-        # Iterate over a copy of the items to allow safe modification during the loop
-        with self.position_lock:
-            # print(f"DEBUG: Checking {len(self.open_positions)} open positions for expiry.")
-            for ticker, data in list(self.open_positions.items()): # Use list() to iterate over a copy
-                entry_time = data['entry_time']
-                expiry_time = entry_time + timedelta(minutes=forecast_depth_minutes)
+    #     # Iterate over a copy of the items to allow safe modification during the loop
+    #     with self.position_lock:
+    #         # print(f"DEBUG: Checking {len(self.open_positions)} open positions for expiry.")
+    #         for ticker, data in list(self.open_positions.items()): # Use list() to iterate over a copy
+    #             entry_time = data['entry_time']
+    #             expiry_time = entry_time + timedelta(minutes=forecast_depth_minutes)
                 
-                # print(f"DEBUG: Ticker: {ticker}, Entry: {entry_time.isoformat()}, Expiry: {expiry_time.isoformat()}, Now: {now_utc.isoformat()}")
+    #             # print(f"DEBUG: Ticker: {ticker}, Entry: {entry_time.isoformat()}, Expiry: {expiry_time.isoformat()}, Now: {now_utc.isoformat()}")
 
-                if now_utc > expiry_time:
-                    print(f"❗Position for {ticker} (entered at {entry_time.isoformat()}) has expired (expiry at {expiry_time.isoformat()}).")
-                    self.liquidate_specific_position(
-                        ticker=ticker,
-                        quantity=data['shares'],
-                        tp_id=data['tp_id'],
-                        sl_id=data['sl_id']
-                    )
-                else:
-                    print(f"✅ Position for {ticker} is still active. Expires in {(expiry_time - now_utc).total_seconds():.0f} seconds.")
+    #             if now_utc > expiry_time:
+    #                 print(f"❗Position for {ticker} (entered at {entry_time.isoformat()}) has expired (expiry at {expiry_time.isoformat()}).")
+    #                 self.liquidate_specific_position(
+    #                     ticker=ticker,
+    #                     quantity=data['shares'],
+    #                     tp_id=data['tp_id'],
+    #                     sl_id=data['sl_id']
+    #                 )
+    #             else:
+    #                 print(f"✅ Position for {ticker} is still active. Expires in {(expiry_time - now_utc).total_seconds():.0f} seconds.")
 
 
 
@@ -382,8 +382,6 @@ def main():
     try:
         while (is_market_open() or (DEBUG=="TRUE")):
             now_utc = datetime.now(timezone.utc)
-            
-            app.manage_expired_positions(forecast_depth)
             
             # --- State Update and Data Fetching ---
             update_flag = (now_utc.second >= 55 and now_utc.minute != last_permanent_update_minute)

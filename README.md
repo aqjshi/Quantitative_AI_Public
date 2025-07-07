@@ -116,77 +116,7 @@ into a higher sleep time to accomodate for your lower frequency data availabilit
 I take no responsibility for the profitability, negligence, or any losses/gains incurred from the use of this software. Always exercise caution and understand the risks involved in automated trading.
 
 **Follow updates on blendingwaves.com for further information.**
-
-
-
-## Current stats, Explained by Gemini for those unfamiliar with Machine Learning Classes/Labels
-
-## Profitability Report
-
-This report shows how much money we're making (or losing) from our stock predictions.
-
-### For AMD Stock:
-
-* **Net Profit:** We gained **$738.84**.
-* **Total "Buy" Predictions:** We made **18,546** "buy" calls.
-    * **Good Buys (True Positives):** **10,469** predictions were profitable (average gain: **26.47%**).
-    * **Bad Buys (False Positives):** **8,077** predictions resulted in losses (average loss: **-25.16%**).
-
-### For NVDA Stock:
-
-* **Net Profit:** We gained **$930.60**.
-* **Total "Buy" Predictions:** We made **18,522** "buy" calls.
-    * **Good Buys (True Positives):** **10,543** predictions were profitable (average gain: **30.17%**).
-    * **Bad Buys (False Positives):** **7,979** predictions resulted in losses (average loss: **-28.20%**).
-
----
-### Overall Profit and Losses:
-
-* **Total Net Profit:** We made **$1,669.44** across both stocks.
-* **Total Good Predictions:** **21,012** profitable trades (average gain: **28.33%**).
-* **Total Bad Predictions:** **16,056** losing trades (average loss: **-26.67%**).
-
----
-## Accuracy Report
-
-This section shows how often our predictions are simply correct or incorrect.
-
-### Test Run 9:
-
-* **AMD Accuracy:** **58.58%** correct (**13,327** out of **22,750**).
-    * **Correct "Buy" (TP):** 8,876
-    * **Correct "Not Buy" (TN):** 4,451
-    * **Wrong "Buy" (FP):** 7,414
-    * **Missed "Buy" (FN):** 2,009
-    * **Precision (Right when we say "buy"):** 54.49%
-    * **Recall (Caught good opportunities):** 81.54%
-* **NVDA Accuracy:** **59.53%** correct (**13,544** out of **22,750**).
-    * **Correct "Buy" (TP):** 9,398
-    * **Correct "Not Buy" (TN):** 4,146
-    * **Wrong "Buy" (FP):** 6,592
-    * **Missed "Buy" (FN):** 2,614
-    * **Precision:** 58.77%
-    * **Recall:** 78.24%
-* **Overall Accuracy for Run 9:** **59.06%**. (No improvement over best **67.67%**).
-
----
-### Test Run 10:
-
-* **AMD Accuracy:** **57.22%** correct (**13,018** out of **22,750**).
-    * **Correct "Buy" (TP):** 8,120
-    * **Correct "Not Buy" (TN):** 4,898
-    * **Wrong "Buy" (FP):** 6,178
-    * **Missed "Buy" (FN):** 3,554
-    * **Precision:** 56.79%
-    * **Recall:** 69.56%
-* **NVDA Accuracy:** **56.01%** correct (**12,743** out of **22,750**).
-    * **Correct "Buy" (TP):** 10,440
-    * **Correct "Not Buy" (TN):** 2,303
-    * **Wrong "Buy" (FP):** 8,682
-    * **Missed "Buy" (FN):** 1,325
-    * **Precision:** 54.60%
-    * **Recall:** 88.74%
-* **Overall Accuracy for Run 10:** **56.62%**. (No improvement over best **67.67%**).
+For Model Backtest Results check the config file, for trained models have a paired config file that display performance diagnostics. This is STRICTLY for academic purposes, and historical performance may not be the most accurate in reflecting real world performance. 
 <<<<<<< HEAD
 
 =======

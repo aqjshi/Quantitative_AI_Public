@@ -30,7 +30,7 @@ est_timezone = pytz.timezone('America/New_York')
 
 
 class RealTimeInferenceEngine:
-    def __init__(self, tickers,  profit_model_path, accuracy_model_path, context_depth, params, hot_burn_in= 250,device='cuda'):
+    def __init__(self, tickers,  accuracy_model_path, profit_model_path, accuracy_basefilters, profit_basefilters,  context_depth, params, hot_burn_in= 250,device='cuda'):
         self.tickers = tickers
         self.device = torch.device(device if torch.cuda.is_available() else 'cpu')
         self.hot_burn_in = hot_burn_in
@@ -39,13 +39,13 @@ class RealTimeInferenceEngine:
         num_outputs = len(self.tickers)
         
         # Load Profit Model
-        self.profit_model = Conv2DMultiBinary(in_channels=1, base_filters=32, num_outputs=num_outputs).to(self.device)
+        self.profit_model = Conv2DMultiBinary(in_channels=1, base_filters=profit_basefilters, num_outputs=num_outputs).to(self.device)
         self.profit_model.load_state_dict(torch.load(profit_model_path, map_location=self.device))
         self.profit_model.eval()
         print(f"✅ Profit Model loaded from {profit_model_path}")
 
         # Load Accuracy Model
-        self.accuracy_model = Conv2DMultiBinary(in_channels=1, base_filters=32, num_outputs=num_outputs).to(self.device)
+        self.accuracy_model = Conv2DMultiBinary(in_channels=1, base_filters=accuracy_basefilters, num_outputs=num_outputs).to(self.device)
         self.accuracy_model.load_state_dict(torch.load(accuracy_model_path, map_location=self.device))
         self.accuracy_model.eval()
         print(f"✅ Accuracy Model loaded from {accuracy_model_path}")

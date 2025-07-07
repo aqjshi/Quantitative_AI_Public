@@ -80,12 +80,28 @@ def main():
         known = json.load(f)
         tickers = known["ticker"]
         params = known["params"]
-        take_profit = known["take_profit"]
-        stop_loss = known["stop_loss"]
-        forecast_depth = known["forecast_depth"]
-        context_depth = known["context_depth"]
-        profit_model_path = known["profit_model_path"]
         accuracy_model_path = known["accuracy_model_path"]
+        profit_model_path = known["profit_model_path"]
+        output_dir = known["output_dir"]
+
+
+        ACCURACY_base_filters  = known["ACCURACY_base_filters"]
+        ACCURACY_lr  = known["ACCURACY_lr"]
+        ACCURACY_batch_size  = known["ACCURACY_batch_size"]
+        ACCURACY_dropout_rate = known["ACCURACY_dropout_rate"]
+        ACCURACY_l1_reg_strength = known["ACCURACY_l1_reg_strength"]
+        ACCURACY_l2_reg_strength = known["ACCURACY_l2_reg_strength"]
+
+
+    
+        PROFIT_base_filters  = known["PROFIT_base_filters"]
+        PROFIT_lr  = known["PROFIT_lr"]
+        PROFIT_batch_size  = known["PROFIT_batch_size"]
+        PROFIT_dropout_rate = known["PROFIT_dropout_rate"]
+        PROFIT_l1_reg_strength = known["PROFIT_l1_reg_strength"]
+        PROFIT_l2_reg_strength = known["PROFIT_l2_reg_strength"]
+
+        context_depth = known["context_depth"]
         order_quantity = known["order_quantity"]
         maximum_exposure = known["maximum_exposure"]
         frequency_limiter_seconds = known["frequency_limiter_seconds"]
@@ -95,7 +111,12 @@ def main():
 
 
  # --- Engine and State Initialization ---
-    inference_engine = RealTimeInferenceEngine(tickers, profit_model_path, accuracy_model_path, context_depth, params)
+    inference_engine = RealTimeInferenceEngine(tickers, 
+                                               accuracy_model_path, 
+                                               profit_model_path, 
+                                               ACCURACY_base_filters,
+                                               PROFIT_base_filters,
+                                            context_depth, params)
     inference_engine.cold_start()
     
     av = av_client()
