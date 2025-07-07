@@ -410,7 +410,7 @@ def main():
             
             # --- Call the position manager ---
             # This is the function you want to test!
-            app.manage_expired_positions(4)
+            app.manage_expired_positions(forecast_depth)
             
             # --- Original AI Trading Logic (DISABLED for this test) ---
             # If you want to keep the inference loop, but disable active trading:

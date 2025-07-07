@@ -236,7 +236,8 @@ class TradeApp(EWrapper, EClient):
         order.lmtPrice = aggressive_sell_price
         order.totalQuantity = quantity
         order.transmit = True
-
+        order.eTradeOnly = False
+        order.firmQuoteOnly = False
         # Step 4: Re-submit the order. IB will modify the existing order because the ID is the same.
         self.placeOrder(order.orderId, contract, order)
         print(f"  -> Modified Take Profit order (ID: {order.orderId}) to aggressive price {aggressive_sell_price}.")
@@ -300,29 +301,26 @@ class TradeApp(EWrapper, EClient):
         Checks for open positions and liquidates them if they have expired.
         """
         now_utc = datetime.now(timezone.utc)
-        
-        with self.position_lock:
-            if not self.open_positions:
-                return # Nothing to do
+    
+        for ticker, data in list(self.open_positions.items()):
+            entry_time = data['entry_time']
+            expiry_time = entry_time + timedelta(minutes=forecast_depth_minutes)
+            
+            if now_utc > expiry_time:
+                # Get the current price for the ticker
+                current_price = trading_data.get(ticker, {}).get('close')
+                if current_price is None:
+                    print(f"Could not get current price for {ticker}. Skipping liquidation this cycle.")
+                    continue
 
-            for ticker, data in list(self.open_positions.items()):
-                entry_time = data['entry_time']
-                expiry_time = entry_time + timedelta(minutes=forecast_depth_minutes)
-                
-                if now_utc > expiry_time:
-                    # Get the current price for the ticker
-                    current_price = trading_data.get(ticker, {}).get('close')
-                    if current_price is None:
-                        print(f"Could not get current price for {ticker}. Skipping liquidation this cycle.")
-                        continue
-
-                    self.liquidate_by_modifying_tp(
-                        ticker=ticker,
-                        current_price=current_price,
-                        quantity=data['shares'],
-                        tp_id=data['tp_id'],
-                        sl_id=data['sl_id']
-                    )
+                self.liquidate_by_modifying_tp(
+                    ticker=ticker,
+                    current_price=current_price,
+                    quantity=data['shares'],
+                    tp_id=data['tp_id'],
+                    sl_id=data['sl_id']
+                )
+from collections import deque # +++ ADD THIS IMPORT AT THE TOP OF YOUR FILE +++
 
 def main():
     config_filepath = sys.argv[1]
@@ -393,63 +391,78 @@ def main():
     
     trade_cooldown_expiry = {ticker: datetime.now(timezone.utc) for ticker in tickers}
     print(f"Trade frequency limiter initialized to {frequency_limiter_seconds} seconds per ticker.")
+    signal_history = {ticker: deque(maxlen=5) for ticker in tickers}
+    print("✅ Signal conviction history tracker initialized for 5 consecutive signals.")
 
     # --- Main Real-Time Loop ---
     print("\n--- Starting High-Frequency Inference & Trading Loop ---")
     try:
         while (is_market_open() or (DEBUG=="TRUE")):
             now_utc = datetime.now(timezone.utc)
-         
-            # --- State Update and Data Fetching ---
-            update_flag = (now_utc.second >= 55 and now_utc.minute != last_permanent_update_minute)
-            if update_flag: last_permanent_update_minute = now_utc.minute
-
-            trading_data = process_REALTIME_BULK_QUOTES(
-                av, tickers, extended_hours=True
-            )
-
             
-            if not (trading_data) :
+            # --- Data Fetching ---
+            trading_data = process_REALTIME_BULK_QUOTES(av, tickers, extended_hours=True)
+            if not trading_data:
                 print("No data fetched, skipping cycle.")
                 time.sleep(1)
                 continue
+
+            # --- Position Management ---
             app.manage_expired_positions(forecast_depth, trading_data)
-            # --- Perform Inference ---
+            
+            # --- Inference ---
+            update_flag = (now_utc.second >= 55 and now_utc.minute != last_permanent_update_minute)
+            if update_flag: last_permanent_update_minute = now_utc.minute
             inference_item = inference_engine.update_hot_tensor_and_return_inference_item(processing_tickers=tickers, new_quote_data=trading_data, update=update_flag)
-
-
-
+            inference_engine.visualize_inference_tensor(inference_item, "ouput_inference_tensor.png")
+            inference_engine.visualize_ohlcv_buffers( "ouput_ohlcv_buffer.png")
             profit_logits, accuracy_logits = inference_engine.infer(inference_item)
 
-            # --- Trading Logic ---
+            # --- Trading Logic with Conviction Clause ---
             print(f"\n--- Cycle at {now_utc.strftime('%H:%M:%S')} UTC ---")
             for i, ticker in enumerate(inference_engine.tickers):
                 profit_signal = profit_logits[i].item()
                 accuracy_signal = accuracy_logits[i].item()
                 
                 print(f"  Signals for {ticker}: Profit={profit_signal:.4f}, Accuracy={accuracy_signal:.4f}")
-                
+
+                # +++ STEP 2: UPDATE THE HISTORY ON EVERY CYCLE +++
+                # Determine the combined signal for this cycle (1 for Buy, 0 for Hold/Sell)
+                combined_signal = 1 if (profit_signal > 0 and accuracy_signal > 0) else 0
+                signal_history[ticker].append(combined_signal)
+                history = signal_history[ticker]
+                print(f"  History for {ticker}: {list(history)}")
+
+                # Check for cooldown
                 if now_utc < trade_cooldown_expiry[ticker]: continue
                 
-
-                if profit_signal > 0 and accuracy_signal > 0:
-                    print(f"  >>> ✅ Agreement found! Attempting trade for {ticker}")
+                # +++ STEP 3: CHECK THE NEW TRADE CONDITION +++
+                # Check if the history is full (5 signals) AND if all signals are '1' (Buy)
+                if len(history) == 5 and all(s == 1 for s in history):
+                    print(f"  >>> ✅ CONVICTION MET! 5 consecutive buy signals for {ticker}. Attempting trade.")
                     entry_price = round(trading_data[ticker]["close"], 2)
                     
-                    parent_order_id = app.place_bracket_order_with_maturity(
-                        ticker=ticker, take_profit_float=take_profit, stop_loss_float=stop_loss,
-                        entry_price=entry_price, quantity=order_quantity
-                    )
+                    # parent_order_id = app.place_bracket_order_with_maturity(
+                    #     ticker=ticker, 
+                    #     take_profit_float=take_profit, 
+                    #     stop_loss_float=stop_loss,
+                    #     entry_price=entry_price, 
+                    #     quantity=order_quantity
+                    # )
                     
-                    if parent_order_id:
-                        print(f"    --> ✅ Bracket order submitted with Parent ID: {parent_order_id}")
-                        expiry_time = now_utc + timedelta(seconds=frequency_limiter_seconds)
-                        trade_cooldown_expiry[ticker] = expiry_time
-                        print(f"    --> ⏳ {ticker} is now in cooldown until {expiry_time.strftime('%H:%M:%S')} UTC.")
-                    else:
-                        print(f"    --> ℹ️ Order for {ticker} was not submitted (risk limits, etc.).")
-            inference_engine.visualize_inference_tensor(inference_item, "ouput_inference_tensor.png")
-            inference_engine.visualize_ohlcv_buffers( "ouput_ohlcv_buffer.png")
+                    # if parent_order_id:
+                    #     print(f"  --> ✅ Bracket order submitted with Parent ID: {parent_order_id}")
+                    #     expiry_time = now_utc + timedelta(seconds=frequency_limiter_seconds)
+                    #     trade_cooldown_expiry[ticker] = expiry_time
+                    #     print(f"  --> ⏳ {ticker} is now in cooldown until {expiry_time.strftime('%H:%M:%S')} UTC.")
+                        
+                    #     # +++ STEP 4: CLEAR HISTORY AFTER PLACING TRADE +++
+                    #     # This prevents immediate re-entry on the next signal.
+                    #     history.clear()
+                    #     print(f"  --> Cleared signal history for {ticker} post-trade.")
+                    # else:
+                    #     print(f"  --> ℹ️ Order for {ticker} was not submitted (risk limits, etc.).")
+            
             time.sleep(4)
 
     except KeyboardInterrupt:

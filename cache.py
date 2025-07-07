@@ -20,64 +20,35 @@ import copy
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pytz
+
 est_timezone = pytz.timezone('America/New_York')
 
-
-
-
-
-
-
-
 class RealTimeInferenceEngine:
-    def __init__(self, tickers,  accuracy_model_path, profit_model_path, accuracy_basefilters, profit_basefilters,  context_depth, params, hot_burn_in= 250,device='cuda'):
+    def __init__(self, tickers, accuracy_model_path, profit_model_path, accuracy_basefilters, profit_basefilters, context_depth, params, hot_burn_in=250, device='cuda'):
+        # --- This __init__ method remains the same ---
         self.tickers = tickers
         self.device = torch.device(device if torch.cuda.is_available() else 'cpu')
         self.hot_burn_in = hot_burn_in
-        # --- Load Both Models ---
         print("Loading dual models...")
         num_outputs = len(self.tickers)
-        
-        # Load Profit Model
         self.profit_model = Conv2DMultiBinary(in_channels=1, base_filters=profit_basefilters, num_outputs=num_outputs).to(self.device)
         self.profit_model.load_state_dict(torch.load(profit_model_path, map_location=self.device))
         self.profit_model.eval()
         print(f"✅ Profit Model loaded from {profit_model_path}")
-
-        # Load Accuracy Model
         self.accuracy_model = Conv2DMultiBinary(in_channels=1, base_filters=accuracy_basefilters, num_outputs=num_outputs).to(self.device)
         self.accuracy_model.load_state_dict(torch.load(accuracy_model_path, map_location=self.device))
         self.accuracy_model.eval()
         print(f"✅ Accuracy Model loaded from {accuracy_model_path}")
-
-
-
-        self.ohlcv_funcs = ["OPEN", "HIGH", "LOW", "CLOSE", "VOLUME"] #
+        self.ohlcv_funcs = ["OPEN", "HIGH", "LOW", "CLOSE", "VOLUME"]
         self.context_depth = context_depth
-        self.params  = sorted(params)
-        self.hot_raw_ohlcv_data_buffer = {} # Initialize an empty dictionary
-
-        # Iterate through each ticker
+        self.params = sorted(params)
+        self.hot_raw_ohlcv_data_buffer = {}
         for ticker in self.tickers:
-            # Add the TIMESTAMP deque for the current ticker
             self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=TIMESTAMP"] = deque(maxlen=hot_burn_in)
-
-            # Then iterate through each OHLCV function and add its deque
             for func in self.ohlcv_funcs:
                 self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function={func}"] = deque(maxlen=hot_burn_in)
-
-        
-        self.hot_params_tensor = {
-            ticker: np.zeros((self.context_depth, len(self.params)), dtype=np.float32)
-            for ticker in self.tickers
-
-        } 
-
-
         self.param_to_idx = {param: i for i, param in enumerate(self.params)}
-        
         print(f"Engine initialized for {len(self.tickers)} tickers.")
-
 
     def cold_start(self):
         print("--- Starting Cold Start via API ---")
@@ -161,13 +132,13 @@ class RealTimeInferenceEngine:
                     reindexed_df[['OPEN', 'HIGH', 'LOW', 'CLOSE']] = reindexed_df[['OPEN', 'HIGH', 'LOW', 'CLOSE']].fillna(0).astype(float)
        
        
-                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=TIMESTAMP"] = reindexed_df.index[:self.hot_burn_in]
+                    timestamp_list = reindexed_df.index[:self.hot_burn_in].tolist()
+                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=TIMESTAMP"] = deque(timestamp_list, maxlen=self.hot_burn_in)
 
-                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=OPEN"] = reindexed_df['OPEN'][:self.hot_burn_in]
-                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=HIGH"] = reindexed_df['HIGH'][:self.hot_burn_in]
-                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=LOW"] = reindexed_df['LOW'][:self.hot_burn_in]
-                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=CLOSE"] = reindexed_df['CLOSE'][:self.hot_burn_in]
-                    self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=VOLUME"] = reindexed_df['VOLUME'][:self.hot_burn_in]
+                    for func_name in self.ohlcv_funcs:
+                        data_list = reindexed_df[func_name][:self.hot_burn_in].tolist()
+                        self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function={func_name}"] = deque(data_list, maxlen=self.hot_burn_in)
+                
                     # print(self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=TIMESTAMP"])
                     # print(self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=OPEN"])
                     # print(self.hot_raw_ohlcv_data_buffer[f"ticker={ticker}&function=HIGH"])
@@ -331,133 +302,125 @@ class RealTimeInferenceEngine:
             result_series = result_series.ffill().bfill() # Fill NaNs for safety
 
         return result_series
-    
-    def update_hot_tensor_and_return_inference_item(self, processing_tickers: List[str], new_quote_data: Dict[str, Dict], update: bool) -> np.ndarray:
-        new_timestamp = datetime.now(timezone.utc).replace(second=0, microsecond=0)
-        for ticker in processing_tickers:
-            print(new_quote_data[f"{ticker}"])
+    def _update_buffer_with_new_bar(self, ticker: str, quote: Dict[str, Any]):
+        """
+        PRIVATE HELPER: Rolls the buffer forward by one minute. Pops the oldest bar
+        and appends a new, complete one. Called only when update=True.
+        """
+        print(f"--- New Bar for {ticker} ---")
+        buffer = self.hot_raw_ohlcv_data_buffer
         
-        temp_buffer_for_next_state = {
-            key: deque(list(dq), maxlen=self.hot_burn_in) # Create new deque with copied contents
-            for key, dq in self.hot_raw_ohlcv_data_buffer.items()
-        }
+        # 1. Pop the oldest data point from the left
+        buffer[f"ticker={ticker}&function=TIMESTAMP"].popleft()
+        for func_name in self.ohlcv_funcs:
+            buffer[f"ticker={ticker}&function={func_name}"].popleft()
+
+        # 2. Append the new data to the right
+        buffer[f"ticker={ticker}&function=TIMESTAMP"].append(datetime.now(timezone.utc).replace(second=0, microsecond=0))
+        for func_name, av_key in [('OPEN', 'open'), ('HIGH', 'high'), ('LOW', 'low'), ('CLOSE', 'close'), ('VOLUME', 'volume')]:
+            buffer[f"ticker={ticker}&function={func_name}"].append(float(quote[av_key]))
+
+    def _update_buffer_intra_bar(self, ticker: str, quote: Dict[str, Any]):
+        """
+        PRIVATE HELPER: Updates the most recent bar in-place with a new tick.
+        Called only when update=False.
+        """
+        print(f"--- Intra-Bar Update for {ticker} ---")
+        buffer = self.hot_raw_ohlcv_data_buffer
         
-        popped_items_for_logging = []
-        for ticker_symbol, data_for_ticker in new_quote_data.items(): 
-            if ticker_symbol in self.tickers: # Ensure we only process tracked tickers
-                popped_ts = temp_buffer_for_next_state[f"ticker={ticker_symbol}&function=TIMESTAMP"].popleft()
-                
-                popped_ohlcv_data = {'timestamp': popped_ts.isoformat()}
-                for func_name in self.ohlcv_funcs:
-                    func_key = f"ticker={ticker_symbol}&function={func_name}"
-                    popped_val = temp_buffer_for_next_state[func_key].popleft()
-                    popped_ohlcv_data[func_name] = popped_val
+        if len(buffer[f"ticker={ticker}&function=TIMESTAMP"]) == 0:
+            print(f"Warning: Buffer for {ticker} is empty, cannot perform intra-bar update.")
+            return
 
+        # Update HIGH, LOW, CLOSE, and VOLUME of the last element [-1]
+        buffer[f"ticker={ticker}&function=HIGH"][-1] = max(buffer[f"ticker={ticker}&function=HIGH"][-1], float(quote['high']))
+        buffer[f"ticker={ticker}&function=LOW"][-1] = min(buffer[f"ticker={ticker}&function=LOW"][-1], float(quote['low']))
+        buffer[f"ticker={ticker}&function=CLOSE"][-1] = float(quote['close'])
+        buffer[f"ticker={ticker}&function=VOLUME"][-1] += float(quote['volume'])
+        # OPEN and TIMESTAMP are intentionally not touched.
 
-
-                popped_items_for_logging.append({ticker_symbol: popped_ohlcv_data})
-                print("POPPED VECTOR ", popped_ohlcv_data)
-
-                temp_buffer_for_next_state[f"ticker={ticker_symbol}&function=TIMESTAMP"].append(new_timestamp)
-
-                # print("KEYS FOR DATA_FOR_TICKER", data_for_ticker) 
-                
-                for func_name, av_key in [
-                    ('OPEN', 'open'), ('HIGH', 'high'), ('LOW', 'low'),
-                    ('CLOSE', 'close'), ('VOLUME', 'volume')
-                ]:  
-                    buffer_key = f"ticker={ticker_symbol}&function={func_name}"
-                    value_to_append = float(data_for_ticker[av_key])
-                    temp_buffer_for_next_state[buffer_key].append(value_to_append)
-                    print(f"   New last column {buffer_key} {temp_buffer_for_next_state[buffer_key][-1]} ")
-                print("\n--- New Item Pushed ---")
-                print(f"  Values: {data_for_ticker}")
-
-                print("------------------------------------------")
-   
-                    
-               
-        
-        # Print items that were "pushed out"
-        if popped_items_for_logging:
-            print("\n--- Items Pushed Out Due to Max Length ---")
-            print(f"  Values: {popped_items_for_logging}")
-            print("------------------------------------------")
-       
-        # Step 2: If 'update' flag is true, commit the temporary buffer to the main buffer.
-        if update:
-            print("--- Starting Hot Update (committing new state) ---")
-            self.hot_raw_ohlcv_data_buffer = temp_buffer_for_next_state 
-
-
-        
-
+    def _prepare_inference_tensor(self) -> np.ndarray:
+        """
+        PRIVATE HELPER: Calculates all indicators and assembles the final
+        feature tensor for the models.
+        """
         all_new_indicator_values = {}
-        # Make sure self.params contains keys like "ticker=AMD&function=OPEN", "ticker=NVDA&function=RSI"
-        for param_str in self.params:
-            # _calculate_param_slice must operate on the `temp_buffer_for_next_state`
-            result_series = self._calculate_param_slice(param_str, temp_buffer_for_next_state)
-            unnormalized_series = result_series[-self.context_depth:] 
 
-            fn_name = param_str.split("function=")[1].split("&")[0] if "function=" in param_str else param_str # Handle if param_str is just a function name
+        # --- Loop through each parameter to calculate and normalize it individually ---
+        for param_str in self.params:
+            # 1. Calculate the indicator series from the buffer
+            result_series = self._calculate_param_slice(param_str, self.hot_raw_ohlcv_data_buffer)
+            unnormalized_series = result_series.tail(self.context_depth)
             
-            last_value = unnormalized_series.iloc[-1]
-            # print(f"LAST VALUE: {param_str[7:30]} {last_value}")
-            if last_value is None:
-                # print(f"Warning: last_value is NaN for {param_str}. Normalization might produce NaNs.")
-                normalized_series = pd.Series(np.nan, index=result_series.index[-self.context_depth:])
-            else:
-                if fn_name in AGAUSSIAN:
-                    normalized_series = unnormalized_series - last_value
-                elif fn_name in PERCENTILE:
-                    normalized_series = (unnormalized_series - last_value) / 100.0
-                elif fn_name in CONSTANT:
-                    normalized_series = unnormalized_series - last_value
-                else: # HUGE functions or default case
-                    normalized_series = (unnormalized_series - last_value) / 10000000.0
+            # 2. Get the last value for normalization
+            # Use a try-except block to gracefully handle cases where the series might be empty
+            try:
+                last_value = unnormalized_series.iloc[-1]
+            except IndexError:
+                last_value = np.nan # Default to NaN if the series is empty
+
+            # 3. Perform normalization
+            # if pd.isna(last_value):
+            #     # If the last value is NaN, the whole normalized series should be NaN
+            #     normalized_series = pd.Series(np.nan, index=unnormalized_series.index)
+            # else:
+            fn_name = param_str.split("function=")[1].split("&")[0] if "function=" in param_str else param_str
+            if fn_name in AGAUSSIAN or fn_name in CONSTANT:
+                normalized_series = unnormalized_series - last_value
+            elif fn_name in PERCENTILE:
+                normalized_series = (unnormalized_series - last_value) / 100.0
+            else:  # HUGE functions
+                normalized_series = (unnormalized_series - last_value) / 10000000.0
+            
+
+
+
             
             all_new_indicator_values[param_str] = normalized_series
 
-        ### --- Step 4: Order Slices and Create Final NumPy Tensor --- ###
-
+        # --- Assemble Final Tensor from the calculated series ---
         ordered_series_list = []
         for param_str in self.params:
-            # Ensure each series added has the correct length (context_depth)
-            series = all_new_indicator_values.get(param_str, pd.Series(np.nan, index=pd.to_datetime([new_timestamp] * self.context_depth))) # Default to NaNs if not found
-            if len(series) < self.context_depth:
-                # Pad with NaNs at the beginning if cold start hasn't filled all deques yet
-                padded_series = pd.Series(np.nan, index=pd.to_datetime([new_timestamp - timedelta(minutes=self.context_depth - 1 - i) for i in range(self.context_depth)]))
-                padded_series[-len(series):] = series.values # Fill from the end
+            series = all_new_indicator_values.get(param_str)
+            
+            # Pad with NaNs if the series is shorter than the required context depth
+            if series is None or len(series) < self.context_depth:
+                padded_series = pd.Series([np.nan] * self.context_depth)
+                if series is not None:
+                    padded_series.iloc[-len(series):] = series.values
                 series = padded_series
+                
             ordered_series_list.append(series)
             
+        # Concatenate all series into a single DataFrame and then convert to a NumPy array
         inference_df = pd.concat(ordered_series_list, axis=1)
-        inference_df.columns = self.params 
+        inference_df.columns = self.params
         
-    
+        # Final check to fill any remaining NaNs before creating the tensor
+        if inference_df.isnull().values.any():
+            inference_df.ffill(inplace=True)
+            inference_df.bfill(inplace=True)
+            inference_df.fillna(0, inplace=True) # Fill any remaining NaNs with 0
 
-        inference_item = inference_df.values.astype(np.float32)
+        return inference_df.values.astype(np.float32)
+    def update_hot_tensor_and_return_inference_item(self, processing_tickers: List[str], new_quote_data: Dict[str, Dict], update: bool) -> np.ndarray:
+        """
+        PUBLIC METHOD: Main entry point to update the real-time buffer and get a new inference item.
+        """
+        # Step 1: Update the buffer for each ticker based on the 'update' flag
+        for ticker_symbol in processing_tickers:
+            if ticker_symbol in new_quote_data:
+                data_for_ticker = new_quote_data[ticker_symbol]
+                if update:
+                    self._update_buffer_with_new_bar(ticker_symbol, data_for_ticker)
+                else:
+                    self._update_buffer_intra_bar(ticker_symbol, data_for_ticker)
         
-        # ### --- Step 5: Calculate and Print Statistics for each column --- ###
-        # print("\n--- Final Tensor Statistics (per feature column) ---")
+        # Step 2: After all buffers are updated, prepare the feature tensor
+        inference_item = self._prepare_inference_tensor()
         
-        # if inference_item.size > 0 and inference_item.shape[1] > 0:
-        #     num_features = inference_item.shape[1]
-        #     for i in range(num_features):
-        #         param_name = self.params[i]
-        #         feature_column_data = inference_item[:, i]
-                
-        #         mean_val = np.nanmean(feature_column_data)
-        #         std_val = np.nanstd(feature_column_data)
-                
-        #         if not np.isnan(mean_val):
-        #             print(f"  > Feature '{param_name}': Mean={mean_val:.4f}, Std Dev={std_val:.4f}")
-        #         else:
-        #             print(f"  > Feature '{param_name}': Mean=NaN, Std Dev=NaN (all values are NaN)")
-        # else:
-        #     print("\n--- Final Tensor is empty or has no features, no statistics to display ---")
-
         return inference_item
+
 
     def infer(self, inference_item: np.ndarray) -> Tuple[torch.Tensor, torch.Tensor]:
         """
