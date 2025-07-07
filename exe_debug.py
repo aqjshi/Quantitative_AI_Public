@@ -205,53 +205,47 @@ class TradeApp(EWrapper, EClient):
 
 
 
+    # This is the most reliable way to liquidate a position
     def liquidate_specific_position(self, ticker: str, quantity: int, tp_id: int, sl_id: int):
-        """A targeted liquidation for one position, typically due to expiry."""
-        print(f"\n🔥 POSITION EXPIRED! Liquidating {quantity} shares of {ticker}...")
+        """
+        Liquidates one position by canceling its bracket orders and submitting a new MKT order.
+        """
+        print(f"\nPOSITION EXPIRED! Liquidating {quantity} shares of {ticker} with a MKT order...")
         
         # Step 1: Cancel the outstanding child orders to prevent conflicts
-        print(f"  -> Cancelling associated Take Profit (ID: {tp_id}) and Stop Loss (ID: {sl_id}) orders.")
-        # reqGlobalCancel might be too broad; target specific order IDs
-        # Instead of self.cancelOrder(tp_id, ""), use:
+        print(f"  -> Cancelling Take Profit (ID: {tp_id}) and Stop Loss (ID: {sl_id}).")
         self.cancelOrder(tp_id) 
         self.cancelOrder(sl_id)
-        time.sleep(1) # Give cancellations a moment to be processed by TWS
+        time.sleep(0.5) # A brief pause for cancellations to process
 
-        # Step 2: Place a market order to sell the position immediately
+        # Step 2: Place a new Market (MKT) order to sell immediately
         contract = Contract()
         contract.symbol = ticker
         contract.secType = "STK"
         contract.exchange = "SMART"
         contract.currency = "USD"
-        contract.primaryExchange = "NASDAQ" # or "ARCA"
 
         order = Order()
-        order.action, order.orderType, order.totalQuantity = "SELL", "MKT", quantity
-        order.eTradeOnly = False
-        order.firmQuoteOnly = False
-        order.goodTillCanceled = False # Ensure it's not GTC
-        order.tif = "DAY" # Time in Force: Day order
+        order.action = "SELL"
+        order.orderType = "MKT"
+        order.totalQuantity = quantity
+        order.transmit = True
 
-        # Use a new order ID for the liquidation order
+        # Use a new, unique order ID
         liquidate_order_id = self.nextOrderId
         self.placeOrder(liquidate_order_id, contract, order)
-        self.nextOrderId += 1 # Increment for next order
-        print(f"  -> MKT SELL order (ID: {liquidate_order_id}) submitted to close {ticker} position.")
+        self.nextOrderId += 1
+        print(f"  -> MKT SELL order (ID: {liquidate_order_id}) submitted for {ticker}.")
 
-        # Remove from open_positions immediately after submitting liquidation order
-        # This prevents multiple liquidations and signals the intent
+        # Proactively remove the position from tracking to prevent re-liquidation
         with self.position_lock:
             if ticker in self.open_positions:
-                # You can choose to delete here or wait for ExecDetails callback
-                # Deleting here is proactive but relies on the MKT order to fill
-                # For this test, it's fine.
-                print(f"  -> Proactively removing {ticker} from open_positions after submitting liquidation.")
                 del self.open_positions[ticker]
 
 
     def liquidate_all_positions(self):
         print("\n" + "="*40)
-        print("🚨 INITIATING EMERGENCY LIQUIDATION 🚨")
+        print(" INITIATING EMERGENCY LIQUIDATION ")
         print("="*40)
 
         print("--> Step 1: Cancelling all open orders...")
@@ -295,7 +289,7 @@ class TradeApp(EWrapper, EClient):
                 else:
                     print(f"   - Skipping {symbol}, quantity is zero.")
         
-        print("\n✅ Liquidation orders have been submitted.")
+        print("\n\Liquidation orders have been submitted.")
         print("Monitor your TWS terminal to confirm all positions are closed.")
         time.sleep(3) # Allow time for orders to be sent before disconnecting
 
@@ -316,7 +310,7 @@ class TradeApp(EWrapper, EClient):
                 # print(f"DEBUG: Ticker: {ticker}, Entry: {entry_time.isoformat()}, Expiry: {expiry_time.isoformat()}, Now: {now_utc.isoformat()}")
 
                 if now_utc > expiry_time:
-                    print(f"❗Position for {ticker} (entered at {entry_time.isoformat()}) has expired (expiry at {expiry_time.isoformat()}).")
+                    print(f"Position for {ticker} (entered at {entry_time.isoformat()}) has expired (expiry at {expiry_time.isoformat()}).")
                     self.liquidate_specific_position(
                         ticker=ticker,
                         quantity=data['shares'],
@@ -324,7 +318,7 @@ class TradeApp(EWrapper, EClient):
                         sl_id=data['sl_id']
                     )
                 else:
-                    print(f"✅ Position for {ticker} is still active. Expires in {(expiry_time - now_utc).total_seconds():.0f} seconds.")
+                    print(f"\Position for {ticker} is still active. Expires in {(expiry_time - now_utc).total_seconds():.0f} seconds.")
 
 
 def main():
@@ -335,13 +329,14 @@ def main():
         known = json.load(f)
         tickers = known["ticker"]
         params = known["params"]
-        take_profit = known["take_profit"]
-        stop_loss = known["stop_loss"]
+    
         forecast_depth = known["forecast_depth"]
         context_depth = known["context_depth"]
         profit_model_path = known["profit_model_path"]
         accuracy_model_path = known["accuracy_model_path"]
         order_quantity = known["order_quantity"]
+        take_profit = known["take_profit"]
+        stop_loss = known["stop_loss"]
         maximum_exposure = known["maximum_exposure"]
         frequency_limiter_seconds = known["frequency_limiter_seconds"]
 

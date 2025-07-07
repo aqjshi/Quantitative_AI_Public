@@ -207,49 +207,43 @@ class TradeApp(EWrapper, EClient):
 
 
 
-    def liquidate_specific_position(self, ticker: str, quantity: int, tp_id: int, sl_id: int):
-        """A targeted liquidation for one position, typically due to expiry."""
-        print(f"\n🔥 POSITION EXPIRED! Liquidating {quantity} shares of {ticker}...")
-        
-        # Step 1: Cancel the outstanding child orders to prevent conflicts
-        print(f"  -> Cancelling associated Take Profit (ID: {tp_id}) and Stop Loss (ID: {sl_id}) orders.")
-        # reqGlobalCancel might be too broad; target specific order IDs
-        # Instead of self.cancelOrder(tp_id, ""), use:
-        self.cancelOrder(tp_id) 
-        self.cancelOrder(sl_id)
-        time.sleep(1) # Give cancellations a moment to be processed by TWS
+    def liquidate_by_modifying_tp(self, ticker: str, current_price: float, quantity: int, tp_id: int, sl_id: int):
+        """
+        Liquidates a position by modifying its Take Profit order to an aggressive price.
+        """
+        print(f"\n🔥 POSITION EXPIRED! Liquidating {quantity} shares of {ticker} by modifying TP order...")
 
-        # Step 2: Place a market order to sell the position immediately
+        # Step 1: Crucially, cancel the Stop Loss order first to break the OCA group
+        print(f"  -> Cancelling associated Stop Loss (ID: {sl_id}) order.")
+        self.cancelOrder(sl_id)
+        time.sleep(0.5)
+
+        # Step 2: Define a new, aggressive price far below the market to guarantee a fill
+        # This effectively turns the LMT order into a MKT order
+        aggressive_sell_price = round(current_price * 0.98, 2) # e.g., 2% below current price
+
+        # Step 3: Create a new order object with the same ID as the Take Profit
         contract = Contract()
         contract.symbol = ticker
         contract.secType = "STK"
         contract.exchange = "SMART"
         contract.currency = "USD"
-        contract.primaryExchange = "NASDAQ" # or "ARCA"
-
+        
         order = Order()
-        order.action, order.orderType, order.totalQuantity = "SELL", "MKT", quantity
-        order.eTradeOnly = False
-        order.firmQuoteOnly = False
-        order.goodTillCanceled = False # Ensure it's not GTC
-        order.tif = "DAY" # Time in Force: Day order
+        order.orderId = tp_id  # Use the EXISTING Take Profit order ID
+        order.action = "SELL"
+        order.orderType = "LMT"
+        order.lmtPrice = aggressive_sell_price
+        order.totalQuantity = quantity
+        order.transmit = True
 
-        # Use a new order ID for the liquidation order
-        liquidate_order_id = self.nextOrderId
-        self.placeOrder(liquidate_order_id, contract, order)
-        self.nextOrderId += 1 # Increment for next order
-        print(f"  -> MKT SELL order (ID: {liquidate_order_id}) submitted to close {ticker} position.")
+        # Step 4: Re-submit the order. IB will modify the existing order because the ID is the same.
+        self.placeOrder(order.orderId, contract, order)
+        print(f"  -> Modified Take Profit order (ID: {order.orderId}) to aggressive price {aggressive_sell_price}.")
 
-        # Remove from open_positions immediately after submitting liquidation order
-        # This prevents multiple liquidations and signals the intent
         with self.position_lock:
             if ticker in self.open_positions:
-                # You can choose to delete here or wait for ExecDetails callback
-                # Deleting here is proactive but relies on the MKT order to fill
-                # For this test, it's fine.
-                print(f"  -> Proactively removing {ticker} from open_positions after submitting liquidation.")
                 del self.open_positions[ticker]
-
 
     def liquidate_all_positions(self):
         print("\n" + "="*40)
@@ -301,52 +295,70 @@ class TradeApp(EWrapper, EClient):
         print("Monitor your TWS terminal to confirm all positions are closed.")
         time.sleep(3) # Allow time for orders to be sent before disconnecting
 
-    # def manage_expired_positions(self, forecast_depth_minutes: int):
-    #     """
-    #     Checks for any open positions that have exceeded their forecast depth
-    #     and liquidates them immediately.
-    #     """
-    #     now_utc = datetime.now(timezone.utc)
+    def manage_expired_positions(self, forecast_depth_minutes: int, trading_data: dict):
+        """
+        Checks for open positions and liquidates them if they have expired.
+        """
+        now_utc = datetime.now(timezone.utc)
         
-    #     # Iterate over a copy of the items to allow safe modification during the loop
-    #     with self.position_lock:
-    #         # print(f"DEBUG: Checking {len(self.open_positions)} open positions for expiry.")
-    #         for ticker, data in list(self.open_positions.items()): # Use list() to iterate over a copy
-    #             entry_time = data['entry_time']
-    #             expiry_time = entry_time + timedelta(minutes=forecast_depth_minutes)
+        with self.position_lock:
+            if not self.open_positions:
+                return # Nothing to do
+
+            for ticker, data in list(self.open_positions.items()):
+                entry_time = data['entry_time']
+                expiry_time = entry_time + timedelta(minutes=forecast_depth_minutes)
                 
-    #             # print(f"DEBUG: Ticker: {ticker}, Entry: {entry_time.isoformat()}, Expiry: {expiry_time.isoformat()}, Now: {now_utc.isoformat()}")
+                if now_utc > expiry_time:
+                    # Get the current price for the ticker
+                    current_price = trading_data.get(ticker, {}).get('close')
+                    if current_price is None:
+                        print(f"Could not get current price for {ticker}. Skipping liquidation this cycle.")
+                        continue
 
-    #             if now_utc > expiry_time:
-    #                 print(f"❗Position for {ticker} (entered at {entry_time.isoformat()}) has expired (expiry at {expiry_time.isoformat()}).")
-    #                 self.liquidate_specific_position(
-    #                     ticker=ticker,
-    #                     quantity=data['shares'],
-    #                     tp_id=data['tp_id'],
-    #                     sl_id=data['sl_id']
-    #                 )
-    #             else:
-    #                 print(f"✅ Position for {ticker} is still active. Expires in {(expiry_time - now_utc).total_seconds():.0f} seconds.")
-
-
+                    self.liquidate_by_modifying_tp(
+                        ticker=ticker,
+                        current_price=current_price,
+                        quantity=data['shares'],
+                        tp_id=data['tp_id'],
+                        sl_id=data['sl_id']
+                    )
 
 def main():
-    
     config_filepath = sys.argv[1]
     DEBUG = sys.argv[2]
     with open(config_filepath, 'r', encoding='utf-8') as f:
         known = json.load(f)
         tickers = known["ticker"]
         params = known["params"]
-        take_profit = known["take_profit"]
-        stop_loss = known["stop_loss"]
+        accuracy_model_path = known["accuracy_model_path"]
+        profit_model_path = known["profit_model_path"]
+        output_dir = known["output_dir"]
+
+
+        ACCURACY_base_filters  = known["ACCURACY_base_filters"]
+        ACCURACY_lr  = known["ACCURACY_lr"]
+        ACCURACY_batch_size  = known["ACCURACY_batch_size"]
+        ACCURACY_dropout_rate = known["ACCURACY_dropout_rate"]
+        ACCURACY_l1_reg_strength = known["ACCURACY_l1_reg_strength"]
+        ACCURACY_l2_reg_strength = known["ACCURACY_l2_reg_strength"]
+
+
+    
+        PROFIT_base_filters  = known["PROFIT_base_filters"]
+        PROFIT_lr  = known["PROFIT_lr"]
+        PROFIT_batch_size  = known["PROFIT_batch_size"]
+        PROFIT_dropout_rate = known["PROFIT_dropout_rate"]
+        PROFIT_l1_reg_strength = known["PROFIT_l1_reg_strength"]
+        PROFIT_l2_reg_strength = known["PROFIT_l2_reg_strength"]
         forecast_depth = known["forecast_depth"]
         context_depth = known["context_depth"]
-        profit_model_path = known["profit_model_path"]
-        accuracy_model_path = known["accuracy_model_path"]
         order_quantity = known["order_quantity"]
+        take_profit = known["take_profit"]
+        stop_loss = known["stop_loss"]
         maximum_exposure = known["maximum_exposure"]
         frequency_limiter_seconds = known["frequency_limiter_seconds"]
+
 
     tickers = sorted(tickers)
     params = sorted(params)
@@ -368,7 +380,12 @@ def main():
         return
 
     # --- Engine and State Initialization ---
-    inference_engine = RealTimeInferenceEngine(tickers, profit_model_path, accuracy_model_path, context_depth, params)
+    inference_engine = RealTimeInferenceEngine(tickers, 
+                                               accuracy_model_path, 
+                                               profit_model_path, 
+                                               ACCURACY_base_filters,
+                                               PROFIT_base_filters,
+                                            context_depth, params)
     inference_engine.cold_start()
     
     av = av_client()
@@ -382,7 +399,7 @@ def main():
     try:
         while (is_market_open() or (DEBUG=="TRUE")):
             now_utc = datetime.now(timezone.utc)
-            
+         
             # --- State Update and Data Fetching ---
             update_flag = (now_utc.second >= 55 and now_utc.minute != last_permanent_update_minute)
             if update_flag: last_permanent_update_minute = now_utc.minute
@@ -396,7 +413,7 @@ def main():
                 print("No data fetched, skipping cycle.")
                 time.sleep(1)
                 continue
-            
+            app.manage_expired_positions(forecast_depth, trading_data)
             # --- Perform Inference ---
             inference_item = inference_engine.update_hot_tensor_and_return_inference_item(processing_tickers=tickers, new_quote_data=trading_data, update=update_flag)
 
