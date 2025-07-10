@@ -1,0 +1,455 @@
+{
+    "SMA": {
+        "function": "SMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "EMA": {
+        "function": "EMA",
+        "symbol": "",
+        "interval": "1min",
+        "time_period": 60,
+        "month": "2025-05",
+        "series_type": "close"
+    },
+    "WMA": {
+        "function": "WMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "DEMA": {
+        "function": "DEMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "TEMA": {
+        "function": "TEMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "TRIMA": {
+        "function": "TRIMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+
+
+    "MAMA": {
+        "function": "MAMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "fastlimit":0.01,
+            "slowlimit":0.01,
+        "series_type": "close"
+
+
+    },
+
+    "KAMA": {
+        "function": "KAMA",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+      
+    },
+
+    "VWAP": {
+        "function": "VWAP",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05"
+    },
+    "T3": {
+        "function": "T3",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+
+
+    "MACD": {
+        "function": "MACD",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close",
+        "fastperiod" : 0,
+        "slowperiod"  : 0,
+        "signalperiod" : 0
+     },
+    "MACDEXT": {
+        "function": "MACDEXT",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close",
+        "fastperiod"  : 0,
+        "slowperiod"  : 0,
+        "signalperiod"  : 0,
+        "fastmatype"  : 0,
+        "slowmatype"  : 0,
+        "signalmatype" : 0
+    },
+    "STOCH": {
+        "function": "STOCH",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05", 
+        "fastkperiod" : 0,
+        "slowkperiod" : 0,
+        "slowdperiod" : 0,
+        "slowkmatype" : 0,
+        "slowdmatype": 0
+    },
+    "STOCHF": {
+        "function": "STOCHF",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05", 
+        "fastkperiod"  : 0,
+        "fastdperiod"  : 0,
+        "fastdmatype"  : 0
+    },
+    "RSI": {
+        "function": "RSI",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "STOCHRSI": {
+        "function": "STOCHRSI",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close",
+        "fastkperiod"  : 0,
+        "fastdperiod"  : 0,
+        "fastdmatype" : 0
+    },
+    "WILLR": {
+        "function": "WILLR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+
+    "ADX": {
+        "function": "ADX",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+    "ADXR": {
+        "function": "ADXR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+    "APO": {
+        "function": "APO",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close",
+        "fastperiod" :0,
+        "slowperiod"  :0,
+        "matype" :0
+    },
+    "PPO": {
+        "function": "PPO",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close",
+        "fastperiod"  :0,
+        "slowperiod"  :0,
+        "matype" :0
+    },
+    "MOM": {
+        "function": "MOM",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "BOP": {
+        "function": "BOP",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05"
+    },
+    "CCI": {
+        "function": "CCI",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+    "CMO": {
+        "function": "CMO",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+
+
+    "ROC": {
+        "function": "ROC",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "ROCR": {
+        "function": "ROCR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+
+    "AROON": {
+        "function": "AROON",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+    "AROONOSC": {
+        "function": "AROONOSC",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "MFI": {
+        "function": "MFI",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "TRIX": {
+        "function": "TRIX",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+
+
+    "ULTOSC": {
+        "function": "ULTOSC",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "timeperiod1" : 60,
+        "timeperiod2" : 60,
+        "timeperiod3": 60
+    },
+    "DX": {
+        "function": "DX",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+    "MINUS_DI": {
+        "function": "MINUS_DI",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "PLUS_DI": {
+        "function": "PLUS_DI",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "MINUS_DM": {
+        "function": "MINUS_DM",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "PLUS_DM": {
+        "function": "PLUS_DM",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "BBANDS": {
+        "function": "BBANDS",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+
+        "series_type": "close",
+        "nbdevup" :0,
+        "nbdevdn" :0,
+        "matype":0
+    },
+
+
+    "MIDPOINT": {
+        "function": "MIDPOINT",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60,
+        "series_type": "close"
+    },
+    "MIDPRICE": {
+        "function": "MIDPRICE",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "SAR": {
+        "function": "SAR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05", 
+        "acceleration":0,
+        "maximum":0
+    },
+    "TRANGE": {
+        "function": "TRANGE",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05"
+    },
+    "ATR": {
+        "function": "ATR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "NATR": {
+        "function": "NATR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "time_period": 60
+    },
+
+    "AD": {
+        "function": "AD",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05"
+        
+    },
+
+
+    "ADOSC": {
+        "function": "ADOSC",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05", 
+        "fastperiod": 0,
+        "slowperiod":0
+    },
+    "OBV": {
+        "function": "OBV",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05"
+    },
+    "HT_TRENDLINE": {
+        "function": "HT_TRENDLINE",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close"
+    },
+
+    "HT_SINE": {
+        "function": "HT_SINE",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close"
+    },
+
+    "HT_TRENDMODE": {
+        "function": "HT_TRENDMODE",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close"
+    },
+
+    "HT_DCPERIOD": {
+        "function": "HT_DCPERIOD",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close"
+    },
+
+    "HT_DCPHASE": {
+        "function": "HT_DCPHASE",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close"
+    },
+
+    "HT_PHASOR": {
+        "function": "HT_PHASOR",
+        "symbol": "",
+        "interval": "1min",
+        "month": "2025-05",
+        "series_type": "close"
+    }
+}

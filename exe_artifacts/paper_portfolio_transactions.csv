@@ -1,0 +1,3 @@
+transaction_id,time_UTC,ticker,current_price,transaction_type,quantity,order_type,parent_id,child_tp_price,child_tp_id,child_sl_price,child_sl_id,child_maturity_id,child_maturity_UTC
+1,2025-07-09T23:09:09.717760+00:00,AMD,138.41,buy,2,entry,,139.51728,2,137.0259,3,4,2025-07-09T23:24:09.717760+00:00
+5,2025-07-09T23:09:09.717760+00:00,NVDA,162.88,buy,2,entry,,164.18304,6,161.25119999999998,7,8,2025-07-09T23:24:09.717760+00:00

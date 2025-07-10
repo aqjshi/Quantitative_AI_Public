@@ -1,0 +1,72 @@
+{
+    "SMA": ["SMA"], 
+    "EMA": ["EMA"],
+    "WMA": ["WMA"],
+    "DEMA": ["DEMA"],
+    "TEMA": ["TEMA"],
+    "TRIMA": ["TRIMA"],
+    "FAMA": ["FAMA"],
+    "MAMA": ["MAMA"],
+    "VWAP": ["VWAP"],
+    "T3": ["T3"],
+    "MACD": ["MACD","MACD_Signal","MACD_Hist"],
+    
+    "MACDEXT": ["MACD","MACD_Signal","MACD_Hist"],
+    "STOCH": ["SlowK", "SlowD"],
+    "STOCHF": ["FastK", "FastD"],
+    "RSI": ["RSI"],
+    "STOCHRSI": ["FastK", "FastD"],
+    "WILLR": ["WILLR"],
+
+    "ADX": ["ADX"],
+    "ADXR": ["ADXR"],
+    "APO": ["APO"],
+    "PPO": ["PPO"],
+    "MOM": ["MOM"],
+    "BOP": ["BOP"],
+    "CCI": ["CCI"],
+    "CMO": ["CMO"],
+
+    "ROC": ["ROC"],
+    "ROCR": ["ROCR"],
+
+    "AROON": ["Arooon Down", "Aroon Up"],
+    "AROONOSC": ["AROONOSC"],
+
+    "MFI": ["MFI"],
+
+    "TRIX": ["TRIX"],
+
+    "ULTOSC": ["ULTOSC"],
+    "DX": ["DX"],
+    "MINUS_DI": ["MINUS_DI"],
+
+    "PLUS_DI": ["PLUS_DI"],
+
+    "MINUS_DM": ["MINUS_DM"],
+
+    "PLUS_DM": ["PLUS_DM"],
+    "BBANDS": ["Real Upper Band", "Real Middle Band", "Real Lower Band"],
+
+    "MIDPOINT": ["MIDPOINT"],
+    "MIDPRICE": ["MIDPRICE"],
+
+    "SAR": ["SAR"],
+    "TRANGE": ["TRANGE"],
+    "ATR": ["ATR"],
+
+    "NATR": ["NATR"],
+
+    "AD": ["Chaikin A/D"],
+
+    "ADOSC": ["ADOSC"],
+    "OBV": ["OBV"],
+    "HT_TRENDLINE": ["HT_TRENDLINE"],
+    "HT_SINE": ["SINE", "LEAD SINE"],
+
+    "HT_TRENDMODE": ["TRENDMODE"],
+
+    "HT_DCPERIOD": ["DCPERIOD"],
+    "HT_DCPHASE": ["HT_DCPHASE"],
+    "HT_PHASOR": ["PHASE", "QUADRATURE"]
+}
