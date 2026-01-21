@@ -1,0 +1,6 @@
+{
+    "market": "indices",
+    "safe_prefixes": [
+        "I:"
+    ]
+}

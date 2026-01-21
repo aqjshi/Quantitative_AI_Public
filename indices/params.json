@@ -1,0 +1,17 @@
+{
+    "train_start": "2024-12-01",
+    "train_end": "2025-12-31",
+    "alpha": 0.95,
+    "limit": 1000,
+    "quotes_limit":50000,
+    "whitelist_tickers": [],
+    "PROXY_MAP": {
+        "I:SPX": "SPY",
+        "I:NDX": "QQQ",
+        "I:DJI": "DIA",
+        "I:RUT": "IWM",
+        "I:VIX": "VXX",
+        "I:SOX": "SOXX",
+        "I:TNX": "TLT"
+    }
+}

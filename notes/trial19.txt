@@ -1,0 +1,190 @@
+Holy fucking shit point in time is so fucking complciated. 
+
+22 years jsut point in time reconstruction downloading stitching and upserting
+
+Machine Specs 7950x, 64 GB DDR5, 2TB SSD, WIFI 
+
+700 Kbps wifi- so theoretical network limit is much much much higher. 
+
+items
+20
+40
+100
+500
+
+
+time
+119
+202
+462.093662
+2253.144114 
+
+ram
+200 mb
+200 mb
+300 mb
+400 mb 
+
+Liner scaling not that bad- we can increase the throughput by incraseing ram usage but thats for later- optimization for
+laptops. 
+
+Even then we would need sentiment models sharded across many different gpus with distributed loader
+and bucket syncing to match the rate the news comes out. 
+
+
+so right now no, we dont need syncing because the final prod cant even run on one laptop. 
+
+
+
+
+we have tore down the machine like 15 times now? Its rough but every steop we become better, stronger faster. 
+
+
+
+CS
+ADRC 
+ADRP
+ETF
+SP
+FUND
+NYRS
+
+
+one day surrogate keys are going to be my 13th reason. 
+
+
+The silence is so loud. I need something to help me move forward. I need to go forward. 
+
+I've never felt fear in my life. Everything I do I do with courage. 
+
+But this I never felt. 
+
+
+
+
+When we introduce the specific stocks we already have selection bias. 
+
+
+Makes no sense. 
+
+
+It assumes that each single stock contribution information contribution is uniform but its obviously not, 
+
+already abnormal macro exposure
+more than some of the normal stocks than apple nvidia, put
+
+
+
+after the using percentile is already wrong, to quantify the bias does not make sense.
+
+
+because in 100 stocks
+n=10,000 should i reduce the selection bias, it ruuins the entire crosse ctional distribuition
+
+the items that
+
+options layer machine learning it will break the random sampling. 
+
+
+It also changes the DAG. 
+
+
+Very baised results. 
+
+truley diversified portfolio
+
+no more than 2.5% in each item weight
+no more than 5% total in sector weight. 
+
+more than 20 sectors. 
+
+
+random sampling
+
+control sector exposure.
+
+use stratified sampling. 
+
+
+X (N stocks × K factors) has time signature. 
+
+
+5 day reduce lead lag, 
+
+same sector nvda and amd maybe open ai and jensen haung gpt is better.
+
+maybe monday nvda increase, amd not yet, tuesday happen, no matter what company better for all sector stocks. 
+
+5 day avg can remove lead lag. 
+
+
+tensor input 
+Returns  = ln pt - ln sma(p t-5 : t:t)
+Returns  = ln pt - ln sma(p t-30 : t:t)
+Returns  = ln pt - ln sma(p t-180 : t:t)
+Returns  = ln pt - ln sma(p t-YTD : t:t)
+Returns  = ln pt - ln sma(p t-365 : t:t)
+
+
+ewls
+
+ytd weighted by distance. 
+
+
+first one is better 
+
+Suvivorship bias strategy 1, for increments of 1 from t0, t1, t2.. .tn random sample from alive  k tickers for universe size of k, train for rest of the year, drop set, resample every year
+strategy 1 selection pool 6k select 100
+
+DO NOT DROP CASE STUDY VALIDATION SET EVER, PERSIST FOREVER 
+
+
+chmath palihpitya is such a fucking fraud bro. 
+
+
+ you aint never seena fish climb a tree this high 
+
+ i jsut dont want to be a part of the food chain anymore, i want the monkies the leopards the other fish
+  to see me and be like "this motherfucker used to be in the WATER, hes earned hsi right to be on land undistrurbed" 
+
+
+[SUCCESS] Master Data & Dividends Ingestion Complete.
+Total Unique Tickers:   671
+Total Instruments:      671
+Total Mapping Debt:     604 segments
+Yearly Sample Size:     30
+Total Processing Time:  104.14 seconds
+Avg Time per Ticker:    0.1552s
+
+
+[SUCCESS] Master Data & Dividends Ingestion Complete.
+Total Unique Tickers:   2107
+Total Instruments:      2107
+Total Mapping Debt:     1851 segments
+Yearly Sample Size:     100
+Total Processing Time:  285.48 seconds
+Avg Time per Ticker:    0.1355s
+==================================================
+
+
+Total Unique Tickers:   7433
+Total Instruments:      7433
+Total Mapping Debt:     6415 segments
+Yearly Sample Size:     500
+Total Processing Time:  955.28 seconds
+Avg Time per Ticker:    0.1285s
+
+
+
+Let etfs handle etfs: pure stocks
+==================================================
+[SUCCESS] Master Data & Dividends Ingestion Complete.
+Total Unique Tickers:   5075
+Total Instruments:      5075
+Total Mapping Debt:     4070 segments
+Yearly Sample Size:     500
+Total Processing Time:  542.57 seconds
+Avg Time per Ticker:    0.1069s
+==================================================
+
+

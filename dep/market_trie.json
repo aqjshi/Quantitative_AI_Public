@@ -1,0 +1,28 @@
+{
+    "I": {
+        ":": {
+            "S": {
+                "P": {
+                    "X": {
+                        "__end__": true,
+                        "metadata": {
+                            "name": "S&P 500",
+                            "type": "Index"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "V": {
+        "T": {
+            "I": {
+                "__end__": true,
+                "metadata": {
+                    "name": "Vanguard Total Market",
+                    "type": "ETF"
+                }
+            }
+        }
+    }
+}

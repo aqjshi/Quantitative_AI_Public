@@ -1,0 +1,63 @@
+Delisting isn't a surprise. Major exchanges (NYSE/NASDAQ) have clear rules (like the $1.00 Minimum Bid Price).
+
+    The Strategy: You look for companies that have been under $1.00 for 150 days. They usually get a 180-day "grace period."
+
+    The Trade: You short them at day 170, betting that the "Deficiency Notice" or the actual move to OTC will cause a forced liquidation by institutional holders (who aren't allowed to own OTC stocks).
+
+
+
+downside short selling need to pay borrow cost s which can eat 100% profeitrs if not settled within aroudn 6 months. buy back at otc using kyles lambda although risky. 
+
+
+How to turn your script into a full Monte Carlo
+
+To move from "Random Sampling" to "Monte Carlo Simulation," you would wrap your __main__ logic in a loop (or use a shell script) to run this ingestion 100 times with a different random.seed().
+
+The Quant Goal:
+
+    If in 950 out of 1,000 random universes, your "Short-to-Delist" strategy makes money, you have Statistical Significance.
+
+    If it only works in 50 out of 1,000, you just got lucky with your first sample, and the strategy is "noise."
+
+
+well the answer is stop shorting shit that can get pumped, short shit that CANNOT get pumped liek a 15 B company during hawkeish era. 
+Dont short to bust, short only for macro based correction.
+
+Retards short a penny stock and think they wont get squeezed. 
+
+
+
+
+Now i fucking understand. I see it now. on the 7th day, god approximated 63 business day quarter into timedelta 3months
+
+
+alas, the first life crawled out of the fucking soup of no common rules.
+
+
+finance bros are the equivalent of astology bitches. "NVDA to the MOON" is the same as "youre such a taurus!"
+
+
+
+
+-- SELECT 
+--     id, 
+--     ticker, 
+--     composite_figi, 
+--     name, 
+--     cik, 
+--     active 
+-- FROM instruments 
+-- WHERE ticker = 'CCIV';
+
+SELECT 
+    i.ticker,
+    i.composite_figi,
+    um.entry_date,
+    um.exit_date,
+    um.seed_id
+FROM universe_membership um
+JOIN instruments i ON um.instrument_id = i.id
+WHERE i.ticker = 'AAPL'
+ORDER BY um.entry_date;
+
+

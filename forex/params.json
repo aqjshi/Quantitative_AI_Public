@@ -1,0 +1,40 @@
+{
+    "train_start": "2024-12-01",
+    "train_end": "2025-12-31",
+    "alpha": 0.99,
+    "ticker_whitelist": [
+        "USD",
+        "EUR",
+        "JPY",
+        "GBP",
+        "CNY",
+        "AUD",
+        "CHF",
+        "CAD",
+        "HKD",
+        "SGD",
+        "INR",
+        "SEK",
+        "KRW",
+        "MXN",
+        "NZD",
+        "NOK",
+        "ZAR",
+        "TWD",
+        "BRL"
+    ],
+    "ticker_hierarchical_topology": [
+        "C:EURUSD",
+        "C:GBPUSD",
+        "C:AUDUSD",
+        "C:USDJPY",
+        "C:USDCNY",
+        "C:USDHKD",
+        "C:USDSGD",
+        "C:USDINR",
+        "C:USDCHF",
+        "C:USDCAD",
+        "C:USDSEK"
+    ],
+    "limit": 50000
+}

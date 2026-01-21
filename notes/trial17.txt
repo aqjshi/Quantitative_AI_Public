@@ -1,0 +1,180 @@
+I bumped into fatass SPY at the SoFi table, getting pissed on by griffin and some other goons.
+
+expensive bicycles and cvs zero fucking correlation flipped cuz plotkin played some whack ass tunes. 
+
+who knows how many at the club, whos retarded to flash bling near sniveling money grubbing cunts?
+
+
+Navinder Singh Sarao, the spoofing guy. Very much respect. That money was better off in his pocket thatn the money
+grubbing sniveling wall street anyways. 
+
+
+
+do i have to store one for every stock at one a day frequency? how do 
+i knwo whwne it changes ticker? this onyl give s me the most recent update unlike 
+if a comap ny swaps their tickler twice   "last_updated_utc": "2026-01-15T07:06:14.885969581Z"    
+}," help em thuink of a way to ensure that also why figi instead of cik granted i have both, but why both cik and figi? 
+how do i make sure yeah here is the time we swap, with a flag isntead of scrapping intermediate time to find correlation twin
+
+this si so fucked up for uniquieness i need 12 bit string but for local i need 4 bit int 
+but we need the speed so complexity it is. 
+
+
+whats the algorithm? assume stocks get updated once every 6 months so for 199-2026- 27 years, so 27 * 2 = 52 pipeline calls,
+each pipeline need resursive expansion 7 minutes so a full pit reconstruction needs 350 minutes? this needs to be faster. we can go 
+1 call per year, but maybe should catch, we jsut ened to make sure that we got every ticker checked out and mapped to their figi and cik. 
+
+this is called the segmented recursive partioning. 
+
+
+Best Case (No change): O(1) per ticker.
+
+Typical Case (1-2 changes): O(klogn) where k is the number of changes. 
+For a 27-year span (n≈10,000 days), logn is only 13-14 calls. If a stock changes 3 times, you're looking at ~40 calls.
+
+Worst Case (Total Chaos): If a stock changed every single day, it would devolve to O(n), but the SEC doesn't move that fast.
+
+God i fucking hate this shit buit i need it because who the fuck is going to wiat 6 hours for some fuckign tickers. 
+
+
+All i know is to go forward. There are no backtraacks like point in time. Only forward looking. No backward looking ever. 
+
+every single fucking time i thought itll get easy it gets fucking harder. 
+
+
+15 second 
+--- Crawling Active Tickers ---
+--- Crawling Delisted Tickers ---
+
+[SUCCESS] Sampled 15057 tickers. Your DB won't explode.
+
+
+ohhh i see what the fucki this is on about for each ticker we check the list date, if its greater than the backtest start date, we jump to that time, 
+then do one more search tahts the ln. so its k ln n  + n which 
+
+I ahte this job. fuck point in time ill point in time your mother. 
+
+time to spread her legs. polygon onyl goes up to 2004. 
+
+so backtest can only go from 2004. 
+
+
+
+
+# https://api.massive.com/v3/reference/tickers/AAPL?date=2004-01-01&apiKey= tio get ticker information. 
+# https://api.massive.com/v3/reference/tickers/FB?date=2004-01-01&apiKey= does not exist
+
+# https://api.massive.com/v3/reference/tickers/FB?date=2013-01-01&apiKey= works 
+# https://api.massive.com/v3/reference/tickers/META?date=2020-01-01&apiKey= no work 
+# https://api.massive.com/v3/reference/tickers/META?date=2022-01-01&apiKey= some random etf probably mark zuckerbergs fucktoy 
+# https://api.massive.com/v3/reference/tickers/META?date=2024-01-01&apiKey= meta. 
+
+
+TEST_SET  = ["FB", "META", "AAPL", "WEWKQ", "CCIV", "LCID"] # ticker change classic, dead comapny, spac, merged 
+
+
+105 tickers 4 minutes 20 years history a l;ittle bit of brag here but i think this is okay speed. Some could say its really fucking good speed
+
+
+
+why the fuck is there apps that trail insider traidses that defeats the entire point you jsut faield financial engineerring 101,
+ if you trail you are providing liquidity to the insiders, you are paying to fuck yousefl in the ass hoping that other peiople are dumber, 
+ but theyre not. who the fuck invetnted this, this would vdefinitely sound scandalous but the indiders are laughing their bootycheeks off. 
+its a crime that it is sold as insider infomration. if you really wanted to beenfit society you should predict what insiders are doing and front run them. 
+
+
+it should be a crime to be retarded. these fin tech bros actually need to be crucified. 
+
+
+[GHOST REPORT] FB:
+  -> 2012-05-18 to 2012-05-20 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2012-05-20 to 2012-05-24 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2012-05-24 to 2012-06-01 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2012-06-01 to 2012-08-03 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2012-08-03 to 2012-12-07 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2012-12-07 to 2013-08-15 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2013-08-15 to 2014-12-31 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2014-12-31 to 2020-06-30 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2020-06-30 to 2021-11-14 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2021-11-14 to 2022-03-19 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2022-03-19 to 2022-05-21 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2022-05-21 to 2022-06-05 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2022-06-05 to 2022-06-09 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2022-06-09 to 2022-06-09 | FIGI: BBG000MM2P62 | CIK: UNKNOWN
+  -> 2025-06-26 to 2025-06-27 | FIGI: BBG01VRMNFB1 | CIK: UNKNOWN
+  -> 2025-06-27 to 2025-07-01 | FIGI: BBG01VRMNFB1 | CIK: UNKNOWN
+  -> 2025-07-01 to 2025-07-09 | FIGI: BBG01VRMNFB1 | CIK: UNKNOWN
+  -> 2025-07-09 to 2025-07-25 | FIGI: BBG01VRMNFB1 | CIK: UNKNOWN
+  -> 2025-07-25 to 2025-08-26 | FIGI: BBG01VRMNFB1 | CIK: UNKNOWN
+  -> 2025-08-26 to 2025-12-30 | FIGI: BBG01VRMNFB1 | CIK: UNKNOWN
+
+[GHOST REPORT] META:
+  -> 2021-06-30 to 2021-07-04 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2021-07-04 to 2021-07-12 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2021-07-12 to 2021-11-15 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2021-11-15 to 2022-01-16 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2022-01-16 to 2022-01-31 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2022-01-31 to 2022-01-31 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2022-06-09 to 2022-06-10 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2022-06-10 to 2022-06-14 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2022-06-14 to 2022-06-22 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2022-06-22 to 2022-07-24 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2022-07-24 to 2023-04-01 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2023-04-01 to 2025-12-31 | FIGI: BBG000MM2P62 | CIK: 0001326801
+
+[GHOST REPORT] AAPL:
+  -> 2004-01-01 to 2025-12-31 | FIGI: BBG000B9XRY4 | CIK: 0000320193
+
+[GHOST REPORT] CCIV:
+  -> 2020-09-18 to 2020-09-20 | FIGI: BBG00YXXW5X3 | CIK: 0001811210
+  -> 2020-09-20 to 2020-09-27 | FIGI: BBG00YXXW5X3 | CIK: 0001811210
+  -> 2020-09-27 to 2021-01-05 | FIGI: BBG00YXXW5X3 | CIK: 0001811210
+  -> 2021-01-05 to 2021-07-25 | FIGI: BBG00YXXW5X3 | CIK: 0001811210
+
+[GHOST REPORT] LCID:
+  -> 2021-07-26 to 2021-07-27 | FIGI: BBG00W7F99V5 | CIK: 0001811210
+  -> 2021-07-27 to 2021-08-12 | FIGI: BBG00W7F99V5 | CIK: 0001811210
+  -> 2021-08-12 to 2021-09-13 | FIGI: BBG00W7F99V5 | CIK: 0001811210
+  -> 2021-09-13 to 2021-11-15 | FIGI: BBG00W7F99V5 | CIK: 0001811210
+  -> 2021-11-15 to 2023-04-01 | FIGI: BBG00W7F99V5 | CIK: 0001811210
+  -> 2023-04-01 to 2025-12-31 | FIGI: BBG00W7F99V5 | CIK: 0001811210
+
+
+[SUCCESS] Reconstruction complete for 105 nodes.
+
+
+
+i think the first goal is to stop fighting the rules of the game and jsut accept that.
+im to fucking mentally exhausted to deal with nonunique figis. go back to cik.
+
+
+OHHHB i fucking get it fb swapped name and 2025 turned it into a fuicking etf 
+
+105 tickers 20 yr histroy 4 minutes, scale linearly * 150
+
+600 minutes, 10 hour not too shabby, for perfect point in time  
+
+
+fuck polygon man. cik is not properly matched: lok at this shit how cdoes figi different but cikl same? trust figi drop cik. 
+
+
+[GHOST REPORT] META:
+  -> 2021-11-15 to 2022-01-16 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2022-01-16 to 2022-01-31 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2022-01-31 to 2022-01-31 | FIGI: BBG011J1MN62 | CIK: 0001326801
+  -> 2022-06-09 to 2022-06-10 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2022-06-10 to 2022-06-14 | FIGI: BBG000MM2P62 | CIK: 0001326801
+  -> 2022-06-14 to 2022-06-22 | FIGI: BBG000MM2P62 | CIK: 0001326801
+
+
+
+Its rare that I say this at all but god bless bloomberg terminal for making figi open source. 
+
+otc is pink sheets, they almost never have liquid thus they are always a leaf so we dont care abotu these guys in the big machine. 
+tbh i dont even know what to do with all this bullshit. 
+
+we have to create something called a dark node. 
+
+where the fuck is the new etf FB? 
+
+

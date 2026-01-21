@@ -1,0 +1,119 @@
+Thus the key to winning? Find the proxies. Lose the formulae. 
+
+
+what about like tlithium etfs did he accoutn for those? yes there surviviroship bias, 
+but those drive comoditiy prices, if you dont have commodity specificc proxies you lose 
+everything, you might as well jsut swap out for the mathematical formula of specific industries 
+
+
+something something etf calculation 
+
+We swap to etfs on manageing the commodities. 
+Total Return=Spot Price Return+Roll Yield+Collateral Return
+
+so if you track a etf tracking the commoditiy only then iot could work? no company specific surviorship bias. 
+
+
+Everybody wants to lie, if you want truth you must make lying cost more than truth. 
+
+
+search SPY in the query we get SPY in the 5th response. 
+
+Search standard poor we got the 
+
+
+ooh type
+SPAC shell corp to raiase money and merge with another company- this is definitely as a tax loophole. 
+whos the brown guy that Chamath Palihapitiya guy. SPACs. bros a fraud through and through.
+Not saying he isnt a genius- he is. but goddamn every word that comes out of his mouth is pure propaganda. 
+
+
+
+
+cs  common stock "think apple"                      no backfill risk
+adrc common foreign stock think toyota or alibaba   minor risk foregin stock
+adrp preferred foreign stock                        minor risk 
+adrr roghst assc with ADR                           minor risk 
+unit usual a bundle ina  spca. one common stock and a frac of a warrant   risky for backfill bullshit
+right  shortter than warrant still a contract 
+pfd  preferred strock. fxd divident 
+fund closed end fund or mut fund
+SP special purpose a "chamath"
+WARRANT a derivative gives right to buy asset at 
+index  matehmatal formuae
+etf bastket of assets proxy SPY                     minor risk for backfill
+etn exchange traded note (bond  that tracks an index, but with bank credit risk ) risky for backfill bullshit
+os      foreign common shares  get them out. 
+gdr                         foreign stock in londor or luxemborg
+other       AALNS (Arrived Homes 4 Allen) is literally a house located at some address in a suburb (probably Allen, Texas). 
+who in their right mind would put their house on the market.... Who- what  the fuck is this clown ass move. 
+nyrs                        foregin but only dutch or german companies
+agen    devt ussyed by gov enterpriace 
+eqlk    quity lined complted strucutred prods
+bond  fxd income debt
+
+
+shit i care absolutely
+
+CS 
+etf 
+adrc
+
+
+at this fucking point im removing the pyrite, and im realizing theres so much pyrite. The markets jsut like me pyrite witha  hope of gold. 
+
+
+you are only ready to launch if you are ready to introduce new variables to your graph on the fly. Difficult yes, 
+but thats the onyl way to ensure that its not 5050 break work. 
+
+we dont even care about sectors or sector roots anymore. theyre all bullshit math formulae. 
+
+jsut get the proxies with tradeable shit.
+
+
+i think the first stop is to not be afraid of the 9k tickers
+we edned up with 6k validated from the sieve validtor policy script
+
+is the only to prevent survivorship bias to have point in time database constructiopn?
+no i could do it,  its jsut this seems god fucking pain in the ass
+
+
+the second step is to not be afraid of comapny mergers, in fact they are the perfect case study hidden in the sea of data
+
+and this is all for Common stock fuck me. 
+
+im going to fucking kill myself i cant just backtest on common stock, we will be accidentally selecting all the winnders. 
+
+God fucking damn chamath i fucking hate that guy. 
+
+we cant jsut throw the fucking shit away. the 3k dead tickers are evidence of surviroship bias. 
+To ignore them is a cardinal and knowing sin of the highest order. 
+To ignore them means we are no better than chamath.
+
+
+THE TRADBLE PROXY HAS .75 FEE BRO. IM SO FUCKING DONE. BRO HOW AM I SUPPOSED TO GET THE FUCKING- no. calm down. 
+all proxies must be lte 1%. otherwise the market will deem them unnecessary with a substitute. 
+
+Thus we can safely asssume that all indices get 1% mgmt fee per year drag down. (might not work but who the fuckcares its 1% its not going 
+to rbeak anything )
+
+
+anyways etf for specific commodities like lithium actually its good to have "company-specific survivorship bias." because if a lithium company 
+gets fried because they were using child labor, but lithiukm prices are up, its good to have surviroship bias. we are abctually using this
+specific property that fucks us in the ass 99% iof the time but int his 1% its a nice bonus. 
+
+
+im breaking the fuck down bro. 
+
+I stare into the abyss of trash, how can the smartest minds in human history accumulate this much debt?
+I turn away ashamed of the shortcomings of the best among us, only to be faced with a bigger heap of trash.
+
+
+spy500 is high returns because its selection bias, not survivorship bias, 
+the historical performance is wrong because of surviorship bias, but really its selecting the
+ companies that the giovernment are more liekly to bail out or give tax incentives, so your 12% 
+ gurantee is not money comoping from nowhere its actually the governemnt cutting benefits from 
+ everybody to put into their blue chip babies- and in fact it should be even higher but you have 
+ big ass hedge funds front running the index that is eating atleast 1% of the 12% so realisitically 
+ the perofrmance should be around 10% in real time and if the hedge funds stop fucking around, it should be 11%. 
+

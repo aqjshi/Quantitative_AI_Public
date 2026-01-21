@@ -1,0 +1,382 @@
+Why we work failed: They dont produce anything they are a finance company. They soak up majority risk to provide liquidity- which they cannot incentivize more than other people. Relied heavy on vencstment cash that is liquid and high flow during dovish era. During Recession Era (after covid) supply chain shock and demand shock = inevitable bankruptcy due to less investment cash flow. 
+
+
+DoorDash Uber:
+(Middleman of Middleman) Relies on 3 pronged businessmodel
+
+Consumers
+Restaurants
+Drivers
+
+Main cash flow is investment cash (to incentivize and advertise service by cheapeneing service). During dovish era very liquid, bduring hawkish economy no investments, business has to rely on on the 3 prong business model because no investment cash.  
+
+During recession consumer buys less, restaurants offer less, drivers are oversupplied by shrinking engineering work market. Thus drivers get paid less- thus thye are less incentivized to work unless paid more. IF driers are paid more, there should be no excess of cash if there is no investment cash, while incentivizing Consumers, Restuarants, and Drivers all at once. If driers are not paid more, their entire business model fails even with majority market share.
+
+
+In dovish economy companies hire more, assume unemployment is X in dovish era. In recession companies hire less, people are less willing to leave jobs, thus more engineering unemployment. Unemployment rates include "flexible workers" like uber as employment, but with more people driving for uber, the engineering unemployment is X + N. Let N be the number of engineers that drive for uber. However we are seeing that  unemployment is the same during (4%, 4%) unemployment rate, with (1%, 4.4%) federal funds rate (2017, 2025). Something is off, I hypothesize that we do some further digging by taking samples from (McDonalds, Walmart) employment rates we will find similar effect across the entire state. 
+
+Less people are paid the less they will use uber, doordash and people will naturally transition into frugal lifestyles. While Luxury goods will not be impacted during recession  (LV, Gucci) , demand is decaying consumer market for non luxury goods. 
+
+
+Naturally if more people drive for uber, theywill not use their services, thus while the initial expected consumer market that market still assuming by unemployment rate is X, UBER knows that their effective consumer market is less than 1-X. Because their own drivers  N do not use their serices, so masically market assumes 1-X consumer market, while true market is 1-X-N.  While N is expected to be around 8.5 M or  2.7% of the population the true unemployment rate is 4.4 + 2.7 = 7.1 and that is not a big number, it is the majority market population of uber consumer market. It is 1-X-N but they will not say anything to panic investors. 
+
+
+
+
+
+The economy is made up of a network of smaller markets. Bond Market, Commodities Market, Stocks, Real Estate, Gold, Consumer Market. Money that moves into one market is money that is not moving in, or moving out of another market. 
+YEAR | Gold Price | Real Price* | Global Gold Market Cap | US Nominal GDP | Ratio (Cap/GDP)
+-----|------------|-------------|------------------------|----------------|----------------
+2017 | $1,300     | $1,300.00   | $8.3 Trillion          | $19.5 Trillion | 42.6%
+2024 | $3,000     | $2,425.00** | $18.5 Trillion         | $28.0 Trillion | 66.1%
+2025 | $4,500     | $3,412.24   | $31.5 Trillion         | $30.6 Trillion | 102.9%
+
+* Real Price in 2017 USD (adjusted for inflation)
+** Estimated Real Price for 2024 based on ~23.7% cumulative inflation since 2017
+
+
+
+
+
+Do the same calculation for Real Estate, Commodities,  Bonds, Consumer Market. And perform stratified subpopulation of US specific. We can see that with high high probability that the consumer market is weakening. 
+
+
+
+Less consumer market with hawkish policy in recession, Uber has no way to run on borrowed cash from their inherently failed businesss model. Thus uber goes bankrupt. I'm assuming many of the executives probably are looking to cash out as soon as possible. 
+
+
+
+Same thing with klarna- Klarna is inherently failed business model -they provide liquidity while charging zero interest rate- meaning they need to sell the APR of people who dont pay. This is consumer debt market. If consumer debt market shrinks, Klarna goes bankrupt because they have no one to lend to anymore to collect apr. In other words Klarna is also running on borrowed cash. 
+
+
+
+
+
+I am going to kill myself - this sshit is not humane how is someone going to spend 12 hours developing a data scrubbing policy- mate how depressing is your life for you to spend 12 hours of good vacation time scrubbing data fuckk my life mane. 
+
+
+I want to smoke- my brain is tired my back is tired but i am still hungry hungry for what? drugs- and a lot of it. I did  tno know how much of a junkie i am undtil i dont have it anymore- doing this shit without drugs is literally torture0- this si inhumane. 
+
+
+
+
+Do i feel special? no infact i feel retarded. 
+
+
+im going to kill myslef- i was running around refactoring the code when i didn't even drop the tables after alteration- persisting the bad structure despite code. ASLwasys write sectiosn in one sitting. 
+
+
+
+
+LAst night I felt kind of numbe-n i cant feel anger resentment or bitterness which is the normal state of ym existance that keeps me going. Who is that fucking petty to persist through suffering for years just to prove a point. how insecure does one have to be to say "yeah, im going to prove my point by studying finance." I guess the only thing I can really say is that "im crazier and more degenerate than you". "This is like that one guy who has 9mnillion mastery on singed top[. bro get a life. this is my life." I am bitter again thats good for productivity. 
+
+
+
+Not the first time I felt actually depressed (death is probably better than living), but this time i feel suicidal (desire death as an end). But one could say my desire to prove a point is much much stronger.
+
+
+I spit on spreadsheet monkies. Thats all these fucking cs majors are good for, preprocessed pipelines, where is the 
+grit where is the human survival instinct to challenge oneself. They jsut makes me want to kill myself. 
+Fucking business majors are good for nothing.
+
+
+I want to smoke. Yes im privilege than some people but I am NOT LAZY- furthermore I am not useless. 
+
+
+Ive never been in a position where I could with confidence blame air. Every single day i feel more resentment and anger. Jealousy.
+
+
+The second pass over the sieve function is seriously going to make me reconsider life . 
+
+
+
+What insane motherfucker would document this shit i wnat to kill myself. These guys at polygon needs a general tech lead 
+because this formatting across the shit is disgusting. 
+
+Polygon documentation
+
+
+
+
+ticker/all_ticker:  cik, ticker, and name
+
+aggregate/custom bars: ohlc: returns ohlcv vw. 
+
+
+
+important vw. Wait a minmute theres a problem with vw i might ahve to dig through the fucking 
+documentation but i remember vividlty that vw does not fucking work. wtv deal with this shit later- 
+ah i remember vwap is the average price trailing the day-0 bullshit am i right . 
+
+
+
+snapshot/single ticker (ticka) : we dont acare about this until we deploy. 
+ps lower = buyers
+
+PS upper = sellers 
+
+
+
+
+
+
+
+
+trades_and_quotes/trades: we dont really care about this until deploy
+technical_indicators: compute locally 
+fundamentals/financials : provides the url for the scraped eXtensible Business Reporting Language) save it later for deploy
+
+
+fundamentals/balance sheets : period end , filing date chronologically orders and payables etc etc quarterly update 
+
+
+fundamentals/cash flow : period end , filing date chronologically orders and payables etc etc quarterly update 
+
+
+
+fundamentals/income satemetns: period end , filing date chronologically orders and payables etc etc quarterly update 
+
+
+fundamentals/ratio: immediate mort recent calculated ratios,  compute locally 
+
+
+
+
+some say im eccentric, weird, or batshit crazy. I dont think they are wrong tbh. But whatever. I feel like you ahve to be weird to devote not jsut your life and time (these are cheap) but attention and focus (expensive)  to this shit. Any bum can play ball, but nobody can play ball like lebron. 
+
+WITH market_stats AS (
+    -- Theoretical max minutes in 1.1 years (Dec 2024 - Jan 2026) 
+    -- 273 trading days * 390 minutes = 106,470
+    SELECT 106470.0 AS expected_minutes
+),
+gap_calc AS (
+    SELECT 
+        company_cik,
+        t,
+        (t - LAG(t) OVER (PARTITION BY company_cik ORDER BY t)) / 60000.0 AS gap_mins
+    FROM quotes
+),
+final_stats AS (
+    SELECT 
+        company_cik,
+        COUNT(*) AS actual_rows,
+        MIN(to_timestamp(t/1000)) as first_quote,
+        MAX(to_timestamp(t/1000)) as last_quote,
+        MAX(gap_mins) as max_gap_mins
+    FROM gap_calc
+    GROUP BY company_cik
+)
+SELECT 
+    company_cik,
+    actual_rows,
+    -- Percent of the year actually captured
+    ROUND((actual_rows / (SELECT expected_minutes FROM market_stats)) * 100, 2) || '%' as year_coverage,
+    -- Percent of the year lost to the single biggest hole
+    ROUND((max_gap_mins / (SELECT expected_minutes FROM market_stats)) * 100, 2) || '%' as biggest_gap_impact,
+    -- Biggest gap expressed in years
+    ROUND(max_gap_mins / (252 * 390), 3) as gap_size_in_years,
+    -- Start and End
+    first_quote,
+    last_quote
+FROM final_stats
+ORDER BY actual_rows ASC; 
+
+health check
+
+
+WITH market_params AS (
+	-- 252 days * 390 minutes = 98,280 expected regular hours rows per year
+	-- Total window (Dec 2024 - Jan 2026) is roughly 1.1 years
+	SELECT 106470.0 AS theoretical_max_rows
+),
+stats AS (
+	SELECT 
+		company_cik,
+		COUNT(*) AS actual_rows,
+		MIN(to_timestamp(t/1000)) AT TIME ZONE 'UTC' AS start_date,
+		MAX(to_timestamp(t/1000)) AT TIME ZONE 'UTC' AS end_date,
+		-- Calculate duplicates: Count of minutes where more than one entry exists
+		SUM(CASE WHEN dup_count > 1 THEN dup_count ELSE 0 END) AS duplicated_rows,
+		MAX(gap_mins) AS max_continuous_gap_mins
+	FROM (
+		SELECT 
+			company_cik, 
+			t,
+			COUNT(*) OVER (PARTITION BY company_cik, t) AS dup_count,
+			(t - LAG(t) OVER (PARTITION BY company_cik ORDER BY t)) / 60000.0 AS gap_mins
+		FROM quotes
+	) sub
+	GROUP BY company_cik
+)
+SELECT 
+	company_cik AS "CIK",
+	actual_rows AS "Total_Rows_Found",
+	ROUND((actual_rows / (SELECT theoretical_max_rows FROM market_params)) * 100, 2) || '%' AS "Coverage_vs_Market_Open",
+	duplicated_rows AS "Corrupted_Duplicate_Rows",
+	ROUND((max_continuous_gap_mins / 1440.0), 2) AS "Biggest_Hole_In_Days",
+	ROUND(max_continuous_gap_mins / (252.0 * 390.0), 3) AS "Gap_Size_In_Years",
+	start_date AS "Data_Starts",
+	end_date AS "Data_Ends",
+	CASE 
+		WHEN actual_rows > (SELECT theoretical_max_rows FROM market_params) * 1.2 THEN 'CRITICAL: Data Inflation/Duplicates'
+		WHEN actual_rows < 50000 THEN 'CRITICAL: Pagination Failure'
+		WHEN max_continuous_gap_mins > 10000 THEN 'CRITICAL: Temporal Swiss Cheese'
+		ELSE 'Nominal'
+	END AS "Audit_Status"
+FROM stats
+ORDER BY "Audit_Status" DESC, actual_rows ASC
+
+health check 2
+
+
+-- If this returns NULL for any ticker, he missed data
+SELECT spine.t, q.c 
+FROM generate_series('2024-12-02 14:30', '2026-01-01', '1 minute'::interval) AS spine(t)
+LEFT JOIN quotes q ON q.t = extract(epoch from spine.t)*1000 AND q.company_cik = 1045810;
+
+hjealth check 3
+
+
+
+Yes, it is absolutely true. Polygon (which aggregates from all exchanges, including the "SIP" and many Dark Pools/Finra TRF) picks up trades that the "Main Floor" (NYSE/NASDAQ) does not physically execute.
+1. The Dark Pool "Phantom" Minutes
+
+Dark Pools (ATS - Alternative Trading Systems) and Wholesale Market Makers (like Citadel or Virtu) often report trades in the "Tape" during hours when the physical exchange floor is closed or quiet.
+
+    The Main Floor: Operates strictly 09:30–16:00.
+
+    Dark Pools & Inter-dealer Trades: Can report trades as early as 04:00 AM and as late as 08:00 PM.
+
+    Polygon's Role: Polygon is a "consolidated feed." If a trade happens in a private dark pool at 05:00 AM and is reported to the FINRA Trade Reporting Facility (TRF), Polygon sees it and creates a minute bar for it.
+
+
+
+    
+
+fundamentals/short interest: biweekly update avg days to vover ave daily vcolume short shares etc
+
+
+
+fundamentals/short volume: broken
+fundamentals/float: broken
+
+
+filing/risk factor: inconsistent and broken
+filing/risk categories: inconsistent and broken
+
+
+
+proposed final schema (assume synced) 
+1. LAYER_EQUITY (Granularity: Daily/Minute)                 done 
+   - TABLE: equity_fact
+   - FIELDS: [company_cik (FK), date, open, high, low, close, volume, vwap, short_interest]
+   - RESOLVER: (company_cik, date)
+
+2. LAYER_DERIVATIVES (Granularity: Snapshot/Real-time)      half-done
+   - TABLE: options_futures_fact
+   - FIELDS: [ticker, date, updated_ns, price, vol_surface, open_interest, delta, gamma]
+   - RESOLVER: (ticker, updated_ns)
+
+3. LAYER_MACRO_GLOBAL (Granularity: Series-Dependent)       half-done
+   - TABLE: macro_series_fact
+   - FIELDS: [series_id (PK_REF), date, value, st_debt_level, gdp_growth, inflation_expect . . . . ]
+   - RESOLVER: (series_id, date)
+   - NOTE: Includes Credit Spreads (TED, High-Yield) and Breakevens.
+
+4. LAYER_CURRENCY_GRAPH (Granularity: Real-time)               done 
+   - TABLE: forex_fact
+   - FIELDS: [pair_id, timestamp, bid, ask, volume]
+   - RESOLVER: (pair_id, timestamp)
+
+5. LAYER_COMMODITIES (Granularity: Daily/Futures)            not done
+   - TABLE: commodity_fact
+   - FIELDS: [contract_id, date, spot_price, future_price, inventory_levels]
+   - RESOLVER: (contract_id, date)
+
+6. LAYER_FLOW_LIQUIDITY (Granularity: Daily)                   done 
+   - TABLE: fund_flows_fact
+   - FIELDS: [etf_ticker, date, aum, net_inflow, shares_outstanding]
+   - RESOLVER: (etf_ticker, date)
+
+7. LAYER_NARRATIVE (Granularity: Event-Driven) LLM             done 
+   - TABLE: sentiment_fact
+   - FIELDS: [entity_id, timestamp, source_type, sentiment_score, raw_json_blob]
+   - RESOLVER: (entity_id, timestamp, hash)
+
+8.[CALENDAR] (Granularity: Event-Driven) fed reserve meeting dates         not done
+- TABLE: The Interrupts (When is the next shock?)
+ 
+
+9 real estate:
+agriculture cost of manufacture, operating cost etc etc. 
+https://quickstats.nass.usda.gov/results/D3F63267-BC02-359F-BABF-D56E5D989F3A
+NASS
+
+
+
+10. LAYER_RELATIONSHIP (The DAG Self-Healing Engine) not done
+   - TABLE: causal_edges (The Graph)
+   - FIELDS: [source_node (FK), target_node (FK), weight, lag_days, p_value]
+   - NOTE: This table is the ONLY one that requires precomputation.
+
+
+11. Liquidation machine
+- if congress bails out my short postion im basically fucked. 
+- just liquidate to cash when vix up, and shut down until turn back on. 
+
+This machine is to detect strategies not to actually trade them. 
+After finding streatgeies, outptu the nodes necessary to make modeling, 
+implement simple trading machine input output with the liquidty machine to reduce ocmplexity and 
+poitn of failures. 
+
+roll updates to big machine simulation weekly make sure the spat out nodes are integrated
+in smaller trading machine. LEt smaller trading machine with liquidation run the trrades. 
+Do only 6- 196 hour trades. No HFT bullshit friction. 
+
+
+
+
+
+================================================================================
+7/9 is done by end of week
+
+
+
+
+
+
+
+
+Many people would get paralyzed by complexity. I dont even know if thats true. But I cannot afford paralysis I MUST move. 
+
+
+
+
+"Help is there a doctor on board?" 
+
+"I'm a doctor." 
+
+"This woman is dying can you please save her?"
+
+"I did my phd on gender studies, that is a man."
+
+"Is there a real doctor on board who can save this man?"
+
+"I am a real doctor."
+
+
+
+
+
+
+PCMCI+ or Constraint-Based Discovery.
+
+    Why PCMCI+? It is the current gold standard for time-series causality.
+
+        It handles Autocorrelation (trends don't look like causes).
+
+        It handles Contemporaneous Links (if Price drops same second News hits).
+
+        It scales reasonably well.
+
+    The Library: Use tigramite (Python library for PCMCI). It solves 90% of the hard math for you.

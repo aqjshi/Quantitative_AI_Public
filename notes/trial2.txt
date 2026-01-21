@@ -1,0 +1,354 @@
+
+
+algorithm link
+https://www.pymc.io/projects/examples/en/latest/causal_inference/interrupted_time_series.html
+https://causal-learn.readthedocs.io/en/latest/search_methods_index/Constraint-based%20causal%20discovery%20methods/PC.html
+
+data link
+https://fred.stlouisfed.org/release/tables?rid=14&eid=7930
+
+answer link
+https://github.com/joshuaulrich/freddy-mcfredface/blob/master/all_fred_categories.csv
+time period
+2000-2025
+
+
+use smoothing then log normal transform
+
+
+
+
+deliverables 
+graph
+
+
+n nodes
+a....n
+
+m edges
+1...m
+
+m weights
+
+float for each 1...m
+
+
+
+
+naive approach
+moving average into indicator
+
+Bayesian approach
+DAG
+
+
+yunchen's past exp
+
+
+input set
+moving average autocorrelation parent
+forex correlation parent
+
+
+
+output set
+put or call indicator autocorr. child
+
+
+Context:
+Given 2 stochastic series A and B, when smoothed and log norm of A and B, the correlation of smooth log norm (A, B) is .5. Since the correlation is .5 we assume its a closed loop meaning that A is the parent of B and B is also parent of A. Assume A and B are stocks in same industry. 
+
+Hypothesis A (time-lag): 
+if (log normed and not smoothed so stationary) A grows k% now then (log normed and not smoothed so stationary) B will grow k% as well in the future.
+
+
+Hypothesis B (Cointegration):
+If price spread(price_a - price_b) is a stable time series, then we could call/put b if a increase/decrease
+
+where
+
+Pt = price_at - price_bt
+log(Pt/Pt-1) = k
+
+
+
+
+A and B in same industry then their series are very similar and we want to do pairs trading. 
+
+Because A and B are in the same industry than there should be no lead lag between A and B. 
+
+
+
+Pairs Trading:
+Given 2 stochastic series A and B, when smoothed and log norm of A and B, the correlation of smooth log norm (A, B) is .5. Since the correlation is .5 we assume its a closed loop meaning that A is the parent of B and B is also parent of A. 
+Assume A and B are stocks in NOT in the same industry. 
+
+
+etf vs benchmark
+we see in sp500 grow ofr fall what does the impact for the undelrying stocks in the indsutry
+
+
+futures and cash commodity. futures price base d on contract-s tochastic, oil and commodities are also moveing. timelike relationship 
+
+Cointegratio
+
+
+
+
+
+gpt becomes more popular then amv, nvda should also increase with lag. 
+
+
+Unemployment and uber doordash stock should move at the same time with no leadlag. 
+
+Unemployment and uber doordash no lead lag. 
+
+Therefore change k (unemployment) = change k ( uber, dorrdash )
+
+
+parent set of unemployment predict unemployment change k. 
+
+
+benchmark  =  set of true series 
+
+Pt = price_at - price_bt
+log(Pt/Pt-1) = k
+
+You 16:03
+Pt = price_at - price_bt
+log(Pt/Pt-1) = k
+if praice at approx. equal price at+1  approx. equal price bt equal price bt+1
+at = at+1
+bt = bt+1
+let pt = (at-bt)
+pt = pt+1
+sma pt-k:t = pt+1
+a, b,c combination to return 3 pairs
+
+
+lets do the test of a,b,c anmd determine which one is the truer series to determine which one is less true series let the truer set be called the benchmark set, where we trade delta zero (scaling with difference) long or short benchmark and opposite the non benchmarks. 
+
+
+
+a,b,c 
+compute delta wrt current spread return to normal spread. 
+
+
+for example today A > B 20 dollar. short A long B.  We know that the return will not return to 10 dollar. 
+
+
+
+Context:
+Given 2 stochastic series A and B, when smoothed and log norm of A and B, the correlation of smooth log norm (A, B) is .5. Since the correlation is .5 we assume its a closed loop meaning that A is the parent of B and B is also parent of A. Assume A and B are stocks in same industry. 
+
+(in index and underlying asset there is prominent and explicit timelag)
+(if A and B are in the same sector:  market says there should be no time lag)
+
+
+Strategy A (Anthony's naive model) : 
+Identify the primary price-discovery asset among a basket (Assets A, B, and C) using cointegration testing (e.g., Johansen test). 
+After discovering Correlation is .7 of the cointegrated A,B we disregard the lead lag parent child relationship (no parent or children). 
+This means that both series can be parent or child at any time. After cointegration A grows k% now then cointegration 
+B will grow k% as well in the future. This is the explicit exploitation of a spurious or actual casual relationship- 
+despite if a actual casual relationship exists or not. 
+
+(expected the direction to be converge, if A is up and B is not up, and historically A and B are correlated, 
+compute long/short positions in the idiosyncratic of A and B profit at end of horizon.)
+
+
+
+Strategy B (Yunchen's Professional model) : 
+
+Identify the primary price-discovery asset among a basket (Assets A, B, and C) using cointegration testing (e.g., Johansen test).
+ Do not use lead lag to maximize profit, execute a mean-reversion trade by taking long/short positions in the idiosyncratic 
+ outliers relative to the established benchmark. Calculate the Z-score of the current spread deviation from the historical 
+ moving average to determine the optimal position sizing (scaling). This strategy bets on the convergence of the "distorted"
+  prices toward the cointegrated equilibrium, utilizing a beta-neutral framework to capture the spread's contraction while 
+  minimizing systematic market risk.
+
+(expected spread delta to be constant over time, if spread is not the constant value's threshold, exploit the difference) 
+
+
+
+
+
+
+Strategy C (New Model):
+
+Weighted DAG solves parent child causual relationship. Let target child series be A, 
+find the ancestors of A in precomputed world discovery graph G. Let experienced behaviors of A's ancestors (A', A'', A'''....) 
+determine the behaviors of A in the future. Allocate positioning sizes of A, B, C and assume null correlation is historically 
+true between A, B, C, and let the feature set be (A's ancestors, B's ancestors, C's ancestors) to decrease risk by diversification.
+
+
+
+
+
+
+
+
+
+n nodes 
+e edges = n(n−1) / 2​ always 
+e weights 
+
+how many weights?
+we have e weights 
+
+if static fixed e edges (brittle)
+
+if you did not prune n == 10M
+
+after pruning we have maybe 40 series
+
+
+
+Am I sick or twisted? no one knows and no one cares. 
+
+The only sin is to hesitate or regret. Life you can only look forward. March on Soldier. 
+
+Why war is fighting? I dont know but take no risks, carry your armor and raise your shield.
+
+
+Do not hesitate. The enemy is breaching the walls and they are in front. Eyes forward soldier. 
+
+Something is failing inside. Idk what it is its failing. Something is failing. Noramlly I have preventative measure against this. Nope this is causing a lot of parts to fall apart. 
+
+
+
+
+I want to smoke so badly
+
+
+
+Something about uhhh filing date being not good, period end wis what you want. Fix to UTC Time midnight something somehting
+
+
+
+They say to document as you go but im documenting bullshit you know I sat here for 6 hours contemplating my superiority 
+complex and insecurities and weaknesses (goid knows I dont have much) and did work for 2. Burnout is real and it make 
+sme want to harm myself,. 
+
+
+You have nio fucking idea what I am going through and you never will. You know how many bridges I fucking burned to prove my point? I will make it I must make the cutoff- otherwise all those people would've been for nothing. YOu think your pain is meaningful? what about their pain? You are a weak leader- meaningless to the goddamn end. 
+
+
+
+
+I wnat to smoke. 
+
+
+Midnight is the only time when its goddamn silent. Im listening to mario theme song. bap! bap!
+
+God I need to speak to a person i think im losing my mind over here. 
+
+
+
+im sorry i failed the goddamn deadline- but you cane ven balme me to produce reproducibvle code is difficult mate- you design the whole thing and deal with the aftermath- its fucking hard mate 
+
+01/04/2026
+
+'no theres shit like forex that needs a bit of a brushing up adn commoddoies and initialziation of macros and the 
+news that i was supposed to get done today but i can only get the stock only -m also i have the legacy code for 
+options but needs to be adapted to new codebase "
+
+
+You know I dont even have the luxury of hanging myself man. This needs to work mate. 
+I do not have the luxury of failing even after death, its more important than I am. 
+This work must be more important than I am because I am insignificant but everywone wants this machine. The machine is all I have left. Only after this machine is finished will I have earned the privilege of killing ymself- but I dont think i will. 
+
+
+I am not a goddamn risk to AUM man. I dont  make the risky positions. I need to go to sleep. I cant code like this anyways- unless I can and Im jsut being a lil bitch. I am being a little bitch. I need to get this done. I want to smoke. 
+
+I haven't spoken to a real person in 2 weeks. Normally I receive isolation well, but idk anymore mayube im becoming weaker. 
+
+
+IT sucks being "talent pyrite". God could jsut made me normal, or he coulve made me successful but no he made me pyrite. 
+
+
+
+i want to smoke fuck the spy 500 they suck fuckign ass i want to demolish some people. 
+
+
+
+ its so fucking done i want to smoke i want to get out of here i want to leave and neve look back i give up 
+
+
+i cannot afford to fail
+
+A FORD? A FOR WHAT? MUSTANG? F150? YEE HAW?
+
+
+
+
+
+
+ man that sso fucked up man that is so fuckign messed up why is the cik the same but fiorefox does register the ctrl f
+  always, this is 3 part error polygon for not distinguisihing firefox for not nhighlighting and my stupidioty for 
+  no ts eeing this is so FUCKING bukkshit jsut becauise I want a reproucible process everythign hastop be reproducible 
+  fuck me man fyuck this 
+
+
+I cant tell if im descending into insanity or ascending into enlightenment. Either way im losing my humanity
+
+
+I dont even know if im smart or dumb but at this point ts hopeless. Im the equivalent of give a monkey enough time on the typewriter he will come up with shakespreeare at some given time. 
+
+
+
+If victory will taste like ash, then let me smoke the fattest victory cigar on the planet. 
+
+RTefactoring legacy code is a fucking bitch, i still ahve commodities, forex, options, news, 
+and the macroeconomic algorithm to go. FUck me. 
+
+
+every single day i feel my drive for excellence is falling apart i have no more anger left to give
+
+
+
+
+"US dept of jsutice report 600K people missing. Well if theyre missing where the fuck did all of them go?"
+
+
+
+
+
+
+you ever seen junji ito's hole? People say this is me. Impossible the hole did not call for me. I command the hole. 
+
+
+One morning I woke and God whispered "you need to build this machine" and so i started building. 
+
+
+
+
+make sure to turn index true for quotes and forex quotes. Also log the alst updated for market ratios for companies. 
+
+just saying BIS will give you a total cum sum, which you will fuck up because its 3 char and it exists in the same column as all the other currencies majing you double count your shit 
+
+
+
+
+i have prioblems i know. 
+
+
+Forex is so mcuh more complicated than financials. snapshots adn tot cum shots frozen time. 
+(unfortunately life is way too hard for sex jokes to be funny)
+
+
+Fianncials companies undergo a common schema for filing albeit you still have some clown ass companies "extraordinary_items" .
+ Forex is more like tracking items in a bin at a supermarket. Set therory changes and thus 
+
+
+Nodes: Each currency is a node.
+
+Edges: The weights are your BIS flows.
+
+Frequency: You have a new "Blueprint" every 3 years.
+
+
+
+
+
+
+
