@@ -1,7 +1,0 @@
-{
-    "train_start": "2024-12-01",
-    "train_end": "2025-12-31",
-    "alpha": 0.95,
-    "limit": 1000,
-    "quotes_limit":50000
-}
