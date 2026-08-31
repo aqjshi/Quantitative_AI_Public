@@ -1,3 +1,5 @@
-Chapter 2-4 is introductory material, publically disclosable, some documents may be deprecated. 
+Currently publically disclosable documentations include chapters 2-4.
 
-Documents are abstractions of underlying code. Code is not publically disclosable.
+Code is not publically disclosable. 
+
+Documentation may be out of date, team is working on updating as soon as possible. 
