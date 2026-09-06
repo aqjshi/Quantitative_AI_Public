@@ -1,0 +1,52 @@
+{
+    "fetch_start": "2016-01-01",
+    "ticker_type": "CS",
+    "num_workers":  2,
+    "rate_limit_per_sec":  20,
+    "string_hash_seed":42,
+    "fundamentals_batch_size":  10,
+
+
+
+    "case_study": [
+  
+        "A",
+        "AFRM",
+        "AAPL",
+        "ABBV",
+        "ABNB",
+        "AMC",
+        "AMZN",
+        "AVGO",
+        "BA",
+        "BBBY",
+        "CCIV",
+        "DASH",
+        "GME",
+        "KLAR",
+        "GOOG",
+        "GOOGL",
+        "FB", "META",   "LCID", "HOOD", "ROK", "ROL",
+        "MU",
+        "NOK",
+        "PHM",
+        "Q",
+        "QCOM",
+        "RL" ,
+        "SOFI",
+              "SIVB" ,
+              "SNDK",
+        "UBER",
+        "WE",
+        "WTS"
+        ], 
+      "reconstruction_batch_size":1,
+    "reconstruction_heartbeat_freq_months":1,
+    "multiplier":30, 
+    "timespan": "minute", 
+    "quote_batch_size_days": 365, 
+    "force_refresh": false, 
+    "maintenance_lookback_months":12,
+    "skip_phase1": false
+}
+
