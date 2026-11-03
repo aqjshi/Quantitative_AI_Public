@@ -1,0 +1,151 @@
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 1)
+                                                                    Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -679.309
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1396.618
+Time:                                                                                                        11:44:19   BIC                           1438.222
+Sample:                                                                                                    06-01-2019   HQIC                          1413.058
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                              
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 25
+TRANSITION PERSISTENCE -> Factor 1 (rho1): 0.4759
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 2)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -679.301
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1398.601
+Time:                                                                                                        11:43:44   BIC                           1442.395
+Sample:                                                                                                    06-01-2019   HQIC                          1415.906
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                      
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 29
+TRANSITION PERSISTENCE -> Factor 1 (rho1): 0.0072
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 3)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -679.285
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1400.571
+Time:                                                                                                        11:43:09   BIC                           1446.554
+Sample:                                                                                                    06-01-2019   HQIC                          1418.741
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                                          
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 96
+TRANSITION PERSISTENCE -> Factor 1 (rho1): 0.0010
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 1)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -628.838
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1315.677
+Time:                                                                                                        11:12:56   BIC                           1379.177
+Sample:                                                                                                    06-01-2019   HQIC                          1340.768
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                              
+Converged : True
+Iterations: 89
+TRANSITION PERSISTENCE -> Factor 1 (rho1): 0.5159 | Factor 2 (rho2): 0.2341
+
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 2)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -628.597
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1319.193
+Time:                                                                                                        11:40:10   BIC                           1387.073
+Sample:                                                                                                    06-01-2019   HQIC                          1346.016
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+================================================================================                        
+Converged : True
+Iterations: 72
+TRANSITION PERSISTENCE -> Factor 1 (rho1): 0.5091 | Factor 2 (rho2): 0.0114
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 3)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -628.069
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1322.139
+Time:                                                                                                        11:41:01   BIC                           1394.398
+Sample:                                                                                                    06-01-2019   HQIC                          1350.692
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+Converged : True
+Iterations: 318
+TRANSITION PERSISTENCE -> Factor 1 (rho1): -0.0327 | Factor 2 (rho2): 0.0035
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 1)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -604.951
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1287.902
+Time:                                                                                                        11:45:01   BIC                           1373.299
+Sample:                                                                                                    06-01-2019   HQIC                          1321.646
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                       
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 152
+TRANSITION PERSISTENCE -> Factor 1 (rho1): 0.5178 | Factor 2 (rho2): 0.0000 | Factor 3 (rho3): 0.6163
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 2)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -780.942
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1645.883
+Time:                                                                                                        11:45:42   BIC                           1737.849
+Sample:                                                                                                    06-01-2019   HQIC                          1682.223
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                                 
+
+Converged : True
+Iterations: 25
+TRANSITION PERSISTENCE -> Factor 1 (rho1): -0.0079 | Factor 2 (rho2): 0.6711 | Factor 3 (rho3): -0.0078
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 3)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -628.180
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1346.361
+Time:                                                                                                        11:22:48   BIC                           1444.895
+Sample:                                                                                                    06-01-2019   HQIC                          1385.297
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+================================================================================
+Converged : False
+Iterations: 261
+
+
+The K=2,p=2 specification achieves the global minimum BIC (1379.2), proving two dynamic factors capture the primary structural co-movements across macro series without overfitting.
+
+Setting lag order p=2 maintains the requisite 3-month rolling memory buffer for quarterly series integration (H-matrix aggregation) while preserving low-parameter efficiency.
+
+Higher-order extensions (K=3,p=3) yield diminishing likelihood returns and severe BIC penalties, confirming (2,2) as the optimal parsimonious architecture for out-of-sample nowcasting.

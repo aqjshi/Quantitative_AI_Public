@@ -1,0 +1,23 @@
+Implemented a non-data-driven accounting DAG method under accounting/graph.py.
+
+Method:
+- Source nodes include revenue, total_assets, and a cash-flow source.
+- The DAG is expanded using BFS with configurable depth.
+- Each directed edge is defined as child_value / parent_value.
+- Missing child values, missing parent values, zero denominators, NaN, and inf are defaulted to 0.
+- Extreme ratios are clipped to avoid unstable neural-network inputs.
+- The DAG is linearized into a fixed-size vector for both TTM and quarterly accounting data.
+
+Deliverables:
+1. Depth sweep from 1 to 4 is saved in accounting/outputs/depth_sweep.csv.
+2. Graph images and JSON adjacency lists are generated for 2020-04-01 and 2026-04-01.
+3. Each ticker has an individual graph, and each date also has a cross-asset graph.
+4. Validation error is stratified by ticker and over time.
+5. Validation includes balance sheet deviation, cash flow deviation, income statement deviation, cumulative error, and MAE.
+
+Main break cases:
+- CCIV has the highest average MAE, mainly driven by balance sheet deviation. This is likely related to SPAC / ticker-transition behavior and unusual balance sheet structure.
+- LCID also has elevated error after the CCIV transition.
+- SIVB has the highest income-statement deviation, likely because bank accounting differs from standard operating-company accounting.
+- BBBY has the highest cash-flow deviation, likely due to distressed retail cash-flow instability.
+- Overall, the method is more stable for standard operating companies and less stable for SPACs, financial firms, distressed firms, or tickers with sparse / unusual accounting fields.

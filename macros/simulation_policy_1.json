@@ -1,0 +1,59 @@
+{
+    "fetch_start": "2010-01-01", 
+
+    "train_start": "2026-01-01", 
+    "train_earliest_lookback": "2015-01-01", 
+    "download_batch_years":5,
+    "random_seed": 42,
+    "fred_seed_category_id": 0, 
+    "num_workers":  2,
+    "rate_limit_per_sec":  1.8,
+    "upsert_categories_bfs_depth": 8,     
+    "upsert_series_lte_depth":8,
+
+    "upsert_categories_depth_1_whitelist": {
+        "Money, Banking, & Finance":	32991,
+        "Population, Employment, & Labor Markets":	10,
+        "National Accounts":	32992,
+        "Production & Business Activity":	1,
+        "Prices":	32455
+    },   
+
+    "upsert_override_series": [
+        "AAA10Y", "BAA10Y", "CPIAUCNS", "DCOILBRENTEU", "DCOILWTICO", "DEXCHUS",
+        "DEXJPUS", "DEXUSEU", "DEXUSUK", "DFF", "DFII10", "DFII20", "DFII5",
+        "DGS1", "DGS10", "DGS1MO", "DGS2", "DGS20", "DGS3", "DGS30", "DGS3MO",
+        "DGS5", "DGS6MO", "DGS7", "DHHNGSP", "DRTSCILM", "GASDESW", "GASREGW",
+        "GFDEBTN", "GVZCLS", "ICNSA", "MICH", "MTSDS133FMS", "NFCI", "NROU",
+        "OVXCLS", "PALUMUSDM", "PCOCOUSDM", "PCU325325", "PCU32733273",
+        "PCU3353133531", "PCU3364133641", "PCU484121484121", "PCUOMFGOMFG",
+        "PIORECRUSDM", "PMAIZMTUSDM", "PMETAINDEXM", "PNGASEUUSDM", "PNGASJPUSDM",
+        "PNICKUSDM", "PPIACO", "PPOILUSDM", "PRUBBUSDM", "PSUGAISAUSDM",
+        "PURANUSDM", "PWHEAMTUSDM", "RSXFSN", "T10YIE", "T5YIE", "T5YIFR",
+        "TCMDO", "UMCSENT", "VIXCLS", "WM2NS", "WPU07110224", "WPU081",
+        "WPU10", "WPU11"
+    ],
+
+
+    "upsert_override":false,
+
+  
+    "fred_frequency_short_max_staleness_months": {"D": 2, "W": 2, "M": 9, "Q": 12},
+    "req_min_coverage_ratio": 0.8,
+    "causal_algorithm_list_supported": ["kalman"],
+    "causal_algorithm": "kalman",
+    "walk_stride_months": 12,
+    "production_forward_months": 12,
+    "train_start_back_months": 60,  
+    "eval_start_back_months": 18,  
+    "eval_end_back_months": 6,  
+    "max_nowcast_gap_months": 1,
+
+    "resample_frequency": "1ME", 
+
+
+    "dynamic_factor_n_factors": 3,
+    "dynamic_factor_lag_order": 1,
+    "dynamic_factor_statespace_tolerance": 1e-5,
+    "dynamic_factor_statespace_maxiter": 1000
+}

@@ -1,0 +1,182 @@
+{
+    "train_start": {
+        "name": "Train Start",
+        "notation": "$t_{\\text{start}}$",
+        "desc": "Global temporal baseline for backtest initialization",
+        "unit": ""
+    },
+    "train_end": {
+        "name": "Train End",
+        "notation": "$t_{\\text{end}}$",
+        "desc": "Terminal timeline ceiling for rolling validation passes",
+        "unit": ""
+    },
+    "simulation_universe": {
+        "name": "Simulation Universe",
+        "notation": "$-$",
+        "desc": "Active asset tickers included in simulation",
+        "unit": ""
+    },
+    "hold_out": {
+        "name": "Hold Out",
+        "notation": "$-$",
+        "desc": "Asset tickers withheld for out-of-sample validation",
+        "unit": ""
+    },
+    "universe_size": {
+        "name": "Universe Size",
+        "notation": "$-$",
+        "desc": "Number of concurrent assets in active slice",
+        "unit": ""
+    },
+    "walk_delta_days": {
+        "name": "Walk Delta Days",
+        "notation": "$\\Delta T_{\\text{walk}}$",
+        "desc": "Chronological interval leap for walk-forward splits",
+        "unit": " days"
+    },
+    "context_depth_days": {
+        "name": "Context Depth Days",
+        "notation": "$\\Delta T_{\\text{context}}$",
+        "desc": "Historical lookback duration for Block 0 fitting",
+        "unit": " days"
+    },
+    "forecast_depth_days": {
+        "name": "Forecast Depth Days",
+        "notation": "$\\Delta T_{\\text{forecast}}$",
+        "desc": "Lookahead prediction horizon for Block 1 density",
+        "unit": " days"
+    },
+    "anchor_stride_mins": {
+        "name": "Anchor Stride Mins",
+        "notation": "$\\Delta \\tau$",
+        "desc": "Sampling interval stride for canonical rows",
+        "unit": " mins"
+    },
+    "ewm_taylor_halflife_mins": {
+        "name": "EWM Taylor Halflife Mins",
+        "notation": "$\\tau_{\\text{half}}$",
+        "desc": "Exponentially weighted moving average decay halflife",
+        "unit": " mins"
+    },
+    "vwap_taylor_stride_mins": {
+        "name": "VWAP Taylor Stride Mins",
+        "notation": "$W$",
+        "desc": "Intraday rolling window for localized VWAP tracking",
+        "unit": " mins"
+    },
+    "taylor_polynomial_degree": {
+        "name": "Taylor Polynomial Degree",
+        "notation": "$d$",
+        "desc": "Polynomial degree yielding $D=4$ features",
+        "unit": ""
+    },
+    "components": {
+        "name": "Components",
+        "notation": "$C$",
+        "desc": "Quantity of distinct conditional Gaussian regimes",
+        "unit": ""
+    },
+    "input_size": {
+        "name": "Input Size",
+        "notation": "$D$",
+        "desc": "Vector footprint ($d+1$) matching Taylor inputs",
+        "unit": ""
+    },
+    "hidden_size": {
+        "name": "Hidden Size",
+        "notation": "$H$",
+        "desc": "Neural layer dimension of the MDN backbone",
+        "unit": ""
+    },
+    "output_size": {
+        "name": "Output Size",
+        "notation": "$3 \\times C$",
+        "desc": "Sliced parameter space $[\\mu_k, \\sigma_k^2, \\pi_k]^T$",
+        "unit": ""
+    },
+    "dropout": {
+        "name": "Dropout",
+        "notation": "$p_{\\text{drop}}$",
+        "desc": "Dropout regularization probability",
+        "unit": ""
+    },
+    "horizon_maturity_buckets": {
+        "name": "Horizon Maturity Buckets",
+        "notation": "$-$",
+        "desc": "Discretized target horizons for multi-step outputs",
+        "unit": ""
+    },
+    "forecast_density": {
+        "name": "Forecast Density",
+        "notation": "$T$",
+        "desc": "Monte Carlo volume-weighted sample allocations",
+        "unit": ""
+    },
+    "total_epochs": {
+        "name": "Total Epochs",
+        "notation": "$-$",
+        "desc": "Maximum full passes over the training data",
+        "unit": ""
+    },
+    "batch_size": {
+        "name": "Batch Size",
+        "notation": "$B$",
+        "desc": "Mini-batch sample size for tensor tracking loops",
+        "unit": ""
+    },
+    "learning_rate": {
+        "name": "Learning Rate",
+        "notation": "$\\eta$",
+        "desc": "Initial step-rate for the Adam gradient optimizer",
+        "unit": ""
+    },
+    "seed": {
+        "name": "Seed",
+        "notation": "$\\mathcal{S}$",
+        "desc": "Global seed anchor for deterministic convergence",
+        "unit": ""
+    },
+    "entropy_coeff": {
+        "name": "Entropy Coeff",
+        "notation": "$\\lambda_{\\text{ent}}$",
+        "desc": "Penalty weight favoring distribution exploration",
+        "unit": ""
+    },
+    "patience": {
+        "name": "Patience",
+        "notation": "$-$",
+        "desc": "Early stopping threshold on validation stall",
+        "unit": ""
+    },
+    "nll_var_eps": {
+        "name": "NLL Var Eps",
+        "notation": "$\\epsilon_{\\text{var}}$",
+        "desc": "Minimum variance floor for negative log-likelihood stability",
+        "unit": ""
+    },
+    "nll_var_ceiling": {
+        "name": "NLL Var Ceiling",
+        "notation": "$M_{\\text{var}}$",
+        "desc": "Maximum variance cap to prevent gradient explosion",
+        "unit": ""
+    },
+    "gradient_max_norm": {
+        "name": "Gradient Max Norm",
+        "notation": "$\\|\\mathbf{g}\\|_{\\text{max}}$",
+        "desc": "Threshold limit for gradient clipping operations",
+        "unit": ""
+    },
+    "numerical_safety_kill": {
+        "name": "Numerical Safety Kill",
+        "notation": "$-$",
+        "desc": "Terminate run flag if NaNs or Infs are encountered",
+        "unit": ""
+    },
+    "verbose": {
+        "name": "Verbose",
+        "notation": "$-$",
+        "desc": "Enable detailed console logging outputs",
+        "unit": ""
+    }
+}

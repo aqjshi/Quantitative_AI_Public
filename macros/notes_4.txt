@@ -1,0 +1,121 @@
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 1)
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 82
+                                                                                                                                                                             Statespace Model Results                                                                                                                                        
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                              MixedFrequencyDFM   Log Likelihood               -2064.121
+Date:                                                                               Wed, 05 Aug 2026   AIC                           4238.242
+Time:                                                                                       07:53:48   BIC                           4358.673
+Sample:                                                                                     06-01-2019   HQIC                          4285.830
+                                                                                   - 11-01-2024                                         
+Covariance Type:                                                                                            opg         
+
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 2)
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 49
+                                                                                                                                                                             Statespace Model Results                                                                                                                                                                             
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                                                                                                                                                                                                                                                                  MixedFrequencyDFM   Log Likelihood               -2068.267
+Date:                                                                                                                                                                                                                                                                                                                    Wed, 05 Aug 2026   AIC                           4248.535
+Time:                                                                                                                                                                                                                                                                                                                            07:54:36   BIC                           4371.156
+Sample:                                                                                                                                                                                                                                                                                                                        06-01-2019   HQIC                          4296.988
+                                                                                                                                                                                                                                                                                                                             - 11-01-2024                                         
+Covariance Type:                                                                                                                                                                                                                                                                                                                      opg                                         
+=================================================================================
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 3)
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 144
+                                                                                                                                                                             Statespace Model Results                                                                                                                                        
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                              MixedFrequencyDFM   Log Likelihood               -2066.406
+Date:                                                                               Wed, 05 Aug 2026   AIC                           4246.811
+Time:                                                                                       07:55:44   BIC                           4371.622
+Sample:                                                                                     06-01-2019   HQIC                          4296.130
+                                                                                   - 11-01-2024                                         
+Covariance Type:                                                                                            opg             
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 1)
+Converged : False
+Iterations: 124
+                                                                                                                                                                             Statespace Model Results                                                                                                                                        
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                              MixedFrequencyDFM   Log Likelihood               -1919.840
+Date:                                                                               Wed, 05 Aug 2026   AIC                           4005.680
+Time:                                                                                       07:56:27   BIC                           4187.422
+Sample:                                                                                     06-01-2019   HQIC                          4077.495
+                                                                                   - 11-01-2024                                         
+Covariance Type:                                                                                            opg                           
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 2)
+Converged : False
+Iterations: 134
+                                                                                                                                                                             Statespace Model Results                                                                                                                                        
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                              MixedFrequencyDFM   Log Likelihood               -1930.700
+Date:                                                                               Wed, 05 Aug 2026   AIC                           4031.399
+Time:                                                                                       07:57:17   BIC                           4217.520
+Sample:                                                                                     06-01-2019   HQIC                          4104.944
+                                                                                   - 11-01-2024                                         
+Covariance Type:                                                                                            opg                                    
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 3)
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 47
+                                                                                                                                                                             Statespace Model Results                                                                                                                                        
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                              MixedFrequencyDFM   Log Likelihood               -2362.639
+Date:                                                                               Wed, 05 Aug 2026   AIC                           4899.277
+Time:                                                                                       07:57:57   BIC                           5089.777
+Sample:                                                                                     06-01-2019   HQIC                          4974.553
+                                                                                   - 11-01-2024                                         
+Covariance Type:                                                                                            opg                                         
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 1)
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 14
+                                                                                                                                                                             Statespace Model Results                                                                                                                                        
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                              MixedFrequencyDFM   Log Likelihood               -2396.343
+Date:                                                                               Wed, 05 Aug 2026   AIC                           5014.685
+Time:                                                                                       07:58:55   BIC                           5257.737
+Sample:                                                                                     06-01-2019   HQIC                          5110.727
+                                                                                   - 11-01-2024                                         
+Covariance Type:                                                                                                             
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 2)
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 27
+                                                                                                                                                                             Statespace Model Results                                                                                                                                                                             
+==================================================================================================================================================================================================================================================================================================================================================================================
+Dep. Variable:     ['CCNSA', 'CFNAI', 'CPIAUCNS', 'DFF', 'DGS10', 'DGS2', 'DHHNGSP', 'DRTSCILM', 'DTWEXBGS', 'GASREGCOVW', 'GFDEBTN', 'HOUSTNSA', 'ICNSA', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO', 'PSOYBUSDM', 'RAILFRTINTERMODAL', 'RSAFSNA', 'STLFSI4', 'T10Y3M', 'TLBACBW027NBOG', 'TOTBKCRNSA', 'UMCSENT', 'UNRATENSA']   No. Observations:                   66
+Model:                                                                                                                                                                                                                                                                                                                  MixedFrequencyDFM   Log Likelihood               -2402.755
+Date:                                                                                                                                                                                                                                                                                                                    Wed, 05 Aug 2026   AIC                           5033.509
+Time:                                                                                                                                                                                                                                                                                                                            07:59:38   BIC                           5283.130
+Sample:                                                                                                                                                                                                                                                                                                                        06-01-2019   HQIC                          5132.146
+                                                                                                                                                                                                                                                                                                                             - 11-01-2024                                         
+Covariance Type:                                                                                                                                                                                                                                                                                                                      opg                                         

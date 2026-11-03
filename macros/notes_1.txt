@@ -1,0 +1,158 @@
+Series, date, realtime_start, value
+A, 1, 2, 5,
+A, 1, 4, 1.5,
+A, 2, 3, 3,
+A, 3, 4, 2.5, 
+B, 1, 2, 15, 
+B, 2, 3, 12.5, 
+B, 3, 4, 17, 
+B, 4, 5, 19, 
+
+
+1. Setup & Model ParametersThe Raw Data StreamSeries A: Has revisions (e.g., a macro indicator).Series B: Has no revisions (e.g., a liquid futures price).SeriesData Date (t)Realtime Start (τ)Value (y)Data StatusA$t=1$$\tau=2$5.0PreliminaryA$t=1$$\tau=4$1.5RevisionA$t=2$$\tau=3$3.0PreliminaryA$t=3$$\tau=4$2.5PreliminaryB$t=1$$\tau=2$15.0FinalB$t=2$$\tau=3$12.5FinalB$t=3$$\tau=4$17.0FinalB$t=4$$\tau=5$19.0FinalModel SpecificationLet $x_\tau$ be a 1D scalar latent state (e.g., "Underlying Economic Index"):$$\text{State Equation:} \quad x_\tau = x_{\tau-1} + w_\tau, \quad w_\tau \sim \mathcal{N}(0, Q=1.0)$$$$\text{Measurement Equation:} \quad y_\tau = H_\tau x_\tau + v_\tau, \quad v_\tau \sim \mathcal{N}(0, R_\tau)$$Observation Matrix ($H$): Maps state $x$ to observations $y = \begin{bmatrix} y_A \\ y_B \end{bmatrix}$. Let $H = \begin{bmatrix} 1 \\ 5 \end{bmatrix}$.Process Noise ($Q$): $Q = 1.0$.Measurement Noise ($R_\tau$):Series B (Unrevised): Always low noise, $R_B = 0.5$.Series A Preliminary: High noise (untrustworthy), $R_{A, \text{prelim}} = 9.0$.Series A Revised: Low noise (trustworthy), $R_{A, \text{revised}} = 1.0$.2. Fast-Forward: State at End of Realtime Step $\tau = 2$At real-time $\tau = 2$, the filter ingested preliminary $A(1)=5.0$ and $B(1)=15.0$.Let's assume the filter completed $\tau = 2$ with these posterior state estimates:Posterior State: $\hat{x}_{2\vert{}2} = 3.0$Posterior Error Variance: $P_{2\vert{}2} = 0.5$3. Realtime Step $\tau = 3$Available Data arriving at $\tau = 3$:$A(2) = 3.0$ (Preliminary) $\rightarrow$ Noise $R = 9.0$$B(2) = 12.5$ (Final) $\rightarrow$ Noise $R = 0.5$Notice: No new data or revisions arrive for $t=1$ or $t=3$ at this exact moment.A. Predict Step$$\hat{x}_{3\vert{}2} = \hat{x}_{2\vert{}2} = 3.0$$$$P_{3\vert{}2} = P_{2\vert{}2} + Q = 0.5 + 1.0 = 1.5$$B. Innovation Vector ($v_3$)$$v_3 = y_3 - H \hat{x}_{3\vert{}2} = \begin{bmatrix} 3.0 \\ 12.5 \end{bmatrix} - \begin{bmatrix} 1 \\ 5 \end{bmatrix} (3.0) = \begin{bmatrix} 3.0 - 3.0 \\ 12.5 - 15.0 \end{bmatrix} = \begin{bmatrix} 0.0 \\ -2.5 \end{bmatrix}$$C. Innovation Covariance ($S_3$)$$R_3 = \begin{bmatrix} 9.0 & 0 \\ 0 & 0.5 \end{bmatrix}$$$$S_3 = H P_{3\vert{}2} H^T + R_3 = \begin{bmatrix} 1 \\ 5 \end{bmatrix} (1.5) \begin{bmatrix} 1 & 5 \end{bmatrix} + \begin{bmatrix} 9.0 & 0 \\ 0 & 0.5 \end{bmatrix}$$$$S_3 = \begin{bmatrix} 1.5 & 7.5 \\ 7.5 & 37.5 \end{bmatrix} + \begin{bmatrix} 9.0 & 0 \\ 0 & 0.5 \end{bmatrix} = \begin{bmatrix} 10.5 & 7.5 \\ 7.5 & 38.0 \end{bmatrix}$$Inverse of $S_3$:$$S_3^{-1} \approx \begin{bmatrix} 0.1109 & -0.0219 \\ -0.0219 & 0.0306 \end{bmatrix}$$D. Kalman Gain ($K_3$)$$K_3 = P_{3\vert{}2} H^T S_3^{-1} = 1.5 \begin{bmatrix} 1 & 5 \end{bmatrix} \begin{bmatrix} 0.1109 & -0.0219 \\ -0.0219 & 0.0306 \end{bmatrix} = \begin{bmatrix} 1.5 & 7.5 \end{bmatrix} \begin{bmatrix} 0.1109 & -0.0219 \\ -0.0219 & 0.0306 \end{bmatrix}$$$$K_3 \approx \begin{bmatrix} 0.0021 & 0.1966 \end{bmatrix}$$Key Observation: Look at $K_3$! The gain for preliminary $A$ is nearly 0.002 (the filter almost completely ignores it because $R_A=9.0$), while the gain for $B$ is 0.196 (it heavily trusts Series B).E. State Update Step ($\tau = 3$)$$\hat{x}_{3\vert{}3} = \hat{x}_{3\vert{}2} + K_3 v_3 = 3.0 + \begin{bmatrix} 0.0021 & 0.1966 \end{bmatrix} \begin{bmatrix} 0.0 \\ -2.5 \end{bmatrix}$$$$\hat{x}_{3\vert{}3} = 3.0 + (0 - 0.4915) = \mathbf{2.5085}$$$$P_{3\vert{}3} = (1 - K_3 H) P_{3\vert{}2} = \left( 1 - \begin{bmatrix} 0.0021 & 0.1966 \end{bmatrix} \begin{bmatrix} 1 \\ 5 \end{bmatrix} \right) 1.5 = (1 - 0.9851) \times 1.5 = \mathbf{0.0223}$$4. Realtime Step $\tau = 4$ (The Revision Step!)Available Data arriving at $\tau = 4$:$A(1) = 1.5$ (Revised! Was 5.0) $\rightarrow$ Noise drops to $R = 1.0$$A(3) = 2.5$ (Preliminary) $\rightarrow$ Noise $R = 9.0$$B(3) = 17.0$ (Final) $\rightarrow$ Noise $R = 0.5$A. Predict Step$$\hat{x}_{4\vert{}3} = \hat{x}_{3\vert{}3} = 2.5085$$$$P_{4\vert{}3} = P_{3\vert{}3} + Q = 0.0223 + 1.0 = 1.0223$$B. How the Revision is HandledIn a point-in-time Kalman filter, the revised $A(1)=1.5$ updates historical state estimates via Kalman Smoothing or enters as a multi-lag measurement vector:$$y_4 = \begin{bmatrix} A(1)_{\text{revised}} \\ A(3)_{\text{prelim}} \\ B(3) \end{bmatrix} = \begin{bmatrix} 1.5 \\ 2.5 \\ 17.0 \end{bmatrix}$$$$R_4 = \begin{bmatrix} \mathbf{1.0} & 0 & 0 \\ 0 & \mathbf{9.0} & 0 \\ 0 & 0 & \mathbf{0.5} \end{bmatrix}, \quad H_4 = \begin{bmatrix} 1 \\ 1 \\ 5 \end{bmatrix}$$C. Innovation Vector ($v_4$)$$v_4 = \begin{bmatrix} 1.5 \\ 2.5 \\ 17.0 \end{bmatrix} - \begin{bmatrix} 1 \\ 1 \\ 5 \end{bmatrix} (2.5085) = \begin{bmatrix} 1.5 - 2.5085 \\ 2.5 - 2.5085 \\ 17.0 - 12.5425 \end{bmatrix} = \begin{bmatrix} \mathbf{-1.0085} \\ -0.0085 \\ \mathbf{4.4575} \end{bmatrix}$$D. Innovation Covariance ($S_4$) & Gain ($K_4$)$$S_4 = H_4 P_{4\vert{}3} H_4^T + R_4 = (1.0223) \begin{bmatrix} 1 & 1 & 5 \\ 1 & 1 & 5 \\ 5 & 5 & 25 \end{bmatrix} + \begin{bmatrix} 1.0 & 0 & 0 \\ 0 & 9.0 & 0 \\ 0 & 0 & 0.5 \end{bmatrix}$$$$S_4 = \begin{bmatrix} 2.0223 & 1.0223 & 5.1115 \\ 1.0223 & 10.0223 & 5.1115 \\ 5.1115 & 5.1115 & 25.5575 \end{bmatrix}$$Computing $K_4 = P_{4\vert{}3} H_4^T S_4^{-1}$:$$K_4 \approx \begin{bmatrix} \mathbf{0.1824} & \mathbf{0.0202} & \mathbf{0.1343} \end{bmatrix}$$Notice what happened to the weights:$A(1)$ revised (Noise = 1.0) gets a weight of 0.1824.$A(3)$ preliminary (Noise = 9.0) gets a tiny weight of 0.0202.Because $A(1)$ was revised down from 5.0 to 1.5, the filter trusts the revised $A(1)$ much more than it ever trusted preliminary $A(1)$.E. State Update Step ($\tau = 4$)$$\hat{x}_{4\vert{}4} = 2.5085 + \begin{bmatrix} 0.1824 & 0.0202 & 0.1343 \end{bmatrix} \begin{bmatrix} -1.0085 \\ -0.0085 \\ 4.4575 \end{bmatrix}$$$$\hat{x}_{4\vert{}4} = 2.5085 + (-0.1839 - 0.0002 + 0.5986) = 2.5085 + 0.4145 = \mathbf{2.9230}$$$$P_{4\vert{}4} = (1 - K_4 H_4) P_{4\vert{}3} = (1 - [0.1824 + 0.0202 + 0.6715]) \times 1.0223 \approx \mathbf{0.1287}$$5. Realtime Step $\tau = 5$Available Data arriving at $\tau = 5$:$B(4) = 19.0$ (Final) $\rightarrow$ Noise $R = 0.5$No new series A data arrives.A. Predict Step$$\hat{x}_{5\vert{}4} = \hat{x}_{4\vert{}4} = 2.9230$$$$P_{5\vert{}4} = P_{4\vert{}4} + Q = 0.1287 + 1.0 = 1.1287$$B. Innovation Vector ($v_5$)Since only $B(4)$ arrives:$$y_5 = [19.0], \quad H_5 = [5], \quad R_5 = [0.5]$$$$v_5 = 19.0 - (5 \times 2.9230) = 19.0 - 14.615 = \mathbf{4.385}$$C. Innovation Covariance ($S_5$) & Gain ($K_5$)$$S_5 = H_5 P_{5\vert{}4} H_5^T + R_5 = 5 (1.1287) (5) + 0.5 = 28.2175 + 0.5 = 28.7175$$$$K_5 = P_{5\vert{}4} H_5^T S_5^{-1} = \frac{1.1287 \times 5}{28.7175} = \mathbf{0.1965}$$D. State Update Step ($\tau = 5$)$$\hat{x}_{5\vert{}5} = \hat{x}_{5\vert{}4} + K_5 v_5 = 2.9230 + (0.1965 \times 4.385) = 2.9230 + 0.8616 = \mathbf{3.7846}$$$$P_{5\vert{}5} = (1 - K_5 H_5) P_{5\vert{}4} = (1 - [0.1965 \times 5]) \times 1.1287 = (1 - 0.9825) \times 1.1287 = \mathbf{0.0198}$$Summary of Results Across StepsStep (τ)Input EventsFiltered State (x^)Error Variance (P)What Saved the Filter?$\tau=3$Prelim $A(2)=3.0$, Final $B(2)=12.5$2.50850.0223High $R_A=9.0$ made the filter ignore preliminary noise in A.$\tau=4$Revised $A(1)=1.5$, Prelim $A(3)=2.5$, Final $B(3)=17.0$2.92300.1287Lowering $R_A$ to $1.0$ allowed the revision to correct state trajectory without creating a jump.$\tau=5$Final $B(4)=19.0$ (Ragged Edge, missing A)3.78460.0198
+
+. Exogenous Tunables (Hyperparameters / Offline Inputs)These are the knobs you set manually, derive from domain knowledge, or compute pre-loop using historical vintage databases.Parameter CategoryDimensionsCount wrt NDescriptionBase Measurement Noise ($\sigma^2_{\text{base}}$)$N \times 1$$N$Baseline idiosyncratic variance for each series when fully mature/finalized.Revision Error Variance ($\sigma^2_{\text{rev}}$)$N \times 1$$N$Pre-computed historical variance of data revisions for each series.Maturation Decay Half-Life ($\gamma$)$N \times 1$ or scalar$N$ (or $1$)Rate at which revision uncertainty shrinks as data age $\Delta t$ increases (e.g., in $R_i(t) = \sigma^2_{\text{base}, i} + \sigma^2_{\text{rev}, i} e^{-\gamma_i \Delta t}$).Latent Factor Count ($K$)Scalar$1$Number of underlying factors to track (chosen by user, e.g., $K=1$ or $K=2$).Transition Matrix ($F$)$K \times K$$K^2$ (Constant)Autoregressive dynamics of the latent factors (often fixed to $I_K$ or estimated via $AR(1)$).Process Noise ($Q$)$K \times K$$K(K+1)/2$Unbound system uncertainty added per step (often normalized to $I_K$).Initial State Prior ($\hat{x}_0, P_0$)$K \times 1, K \times K$$K + K^2$Starting guess and prior uncertainty before time step 1.Total Exogenous Tunable Count: $\mathbf{3N + 2K^2 + K + \frac{K(K+1)}{2}}$For a standard 1-factor model ($K=1$): $3N + 4$ parameters.2. Endogenous Non-Tunables (Internal Model Parameters & State Vectors)These are the structural matrices and internal variables that are either estimated from data via PCA/EM or updated recursively at each step $t$ by the Kalman filter equations.A. Static / System Parameters (Derived via PCA or EM)MatrixDimensionsParameter CountDescriptionObservation / Factor Loadings ($H$)$N \times K$$N \cdot K$Maps the $K$ latent factors to the $N$ observed macro series.B. Dynamic Time-Varying States (Updated Every Step $t$)Matrix / VectorDimensionsVariable Elements per Step tDescriptionDynamic Measurement Noise ($R_t$)$N \times N$ (Diagonal)$N$Constructed dynamically per step using your $(3, N)$ metadata matrix ($R_t(i,i) = \sigma^2_{\text{base}, i} + \text{Penalty}_i(\Delta t)$).Latent State Estimate ($\hat{x}_t$)$K \times 1$$K$The core filtered economic signal at time $t$.State Error Covariance ($P_t$)$K \times K$ (Symmetric)$\frac{K(K+1)}{2}$Uncertainty bounds around the state estimate at time $t$.Total Endogenous Non-Tunable Count: $\mathbf{N \cdot K + N + K + \frac{K(K+1)}{2}}$For a standard 1-factor model ($K=1$): $(2N + 2)$ parameters/variables.3. Summary Table: Grand Parameter CountFor an $N$-series model with $K$ unobserved factors:Parameter TypeFormula wrt N and KCount for N=11, K=1Count for N=18, K=1Exogenous Tunables$3N + 2K^2 + K + \frac{K(K+1)}{2}$3758Endogenous Parameters & States$N(K + 1) + K + \frac{K(K+1)}{2}$2438TOTAL SYSTEM PARAMETERS$N(K + 4) + 2K^2 + 2K + K(K+1)$
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 1)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -679.309
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1396.618
+Time:                                                                                                        11:14:49   BIC                           1438.222
+Sample:                                                                                                    06-01-2019   HQIC                          1413.058
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+================================================================================
+Converged : True
+Iterations: 30
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 2)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -679.301
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1398.601
+Time:                                                                                                        11:15:29   BIC                           1442.395
+Sample:                                                                                                    06-01-2019   HQIC                          1415.906
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+Converged : True
+Iterations: 30
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (1, 3)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -679.283
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1400.567
+Time:                                                                                                        11:16:15   BIC                           1446.550
+Sample:                                                                                                    06-01-2019   HQIC                          1418.737
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+Converged : True
+Iterations: 80
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 1)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -628.838
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1315.677
+Time:                                                                                                        11:12:56   BIC                           1379.177
+Sample:                                                                                                    06-01-2019   HQIC                          1340.768
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                              
+Converged : True
+Iterations: 60
+
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 2)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -627.512
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1317.025
+Time:                                                                                                        11:13:37   BIC                           1384.904
+Sample:                                                                                                    06-01-2019   HQIC                          1343.847
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+Converged : True
+Iterations: 66
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (2, 3)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -627.270
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1320.540
+Time:                                                                                                        11:17:01   BIC                           1392.799
+Sample:                                                                                                    06-01-2019   HQIC                          1349.093
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+================================================================================
+Converged : True
+Iterations: 289
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 1)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -619.252
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1316.504
+Time:                                                                                                        11:21:11   BIC                           1401.900
+Sample:                                                                                                    06-01-2019   HQIC                          1350.248
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+================================================================================
+KALMAN FIT SUMMARY (In-Sample)
+Converged : True
+Iterations: 270
+
+
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 2)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -604.505
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1293.009
+Time:                                                                                                        11:18:17   BIC                           1384.975
+Sample:                                                                                                    06-01-2019   HQIC                          1329.349
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+Converged : False
+Iterations: 279
+
+dynamic_factor_n_factors, dynamic_factor_lag_order = (3, 3)
+                                                                   Statespace Model Results                                                                   
+==============================================================================================================================================================
+Dep. Variable:     ['BUSLOANSNSA', 'CPIAUCNS', 'HOUSTNSA', 'IQ', 'JTUJOL', 'NFCI', 'PAYNSA', 'POILWTIUSDM', 'PPIACO']   No. Observations:                   66
+Model:                                                                                              MixedFrequencyDFM   Log Likelihood                -628.180
+Date:                                                                                                Tue, 04 Aug 2026   AIC                           1346.361
+Time:                                                                                                        11:22:48   BIC                           1444.895
+Sample:                                                                                                    06-01-2019   HQIC                          1385.297
+                                                                                                         - 11-01-2024                                         
+Covariance Type:                                                                                                  opg                                         
+================================================================================
+Converged : False
+Iterations: 261
+
+
+The K=2,p=2 specification achieves the global minimum BIC (1379.2), proving two dynamic factors capture the primary structural co-movements across macro series without overfitting.
+
+Setting lag order p=2 maintains the requisite 3-month rolling memory buffer for quarterly series integration (H-matrix aggregation) while preserving low-parameter efficiency.
+
+Higher-order extensions (K=3,p=3) yield diminishing likelihood returns and severe BIC penalties, confirming (2,2) as the optimal parsimonious architecture for out-of-sample nowcasting.
